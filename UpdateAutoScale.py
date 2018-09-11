@@ -1,5 +1,5 @@
 # -- On Nov 22, 2017  -- # 
-# -- By chb@mz.co.kr  -- # 
+# -- By liverpools@gmail.com  -- # 
 # -- AutoScaleAllInOne : Create a AMI -> Launch Configuration -> Create a Auto Scale Group
 
 import boto3, json, time, sys, re, logging
