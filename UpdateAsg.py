@@ -1,4 +1,4 @@
-# -- By chb@mz.co.kr -- # 
+# -- By liverpools@gmail.com -- # 
 # -- On Mar 6, 2018 -- # 
 import boto3, time 
 
