@@ -157,4 +157,4 @@ f = np.sin(x)
 
 ```
 > 다음과 같은 함수를 찾아보면 좋다. 
->> array, zeros, zeros_like, ones, ones_like, empty, empty_like, arange, linspace, numpy.random.Generator.rand, numpy.random.Generator.randn, fromfunction, fromfile
+>> [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array), zeros, zeros_like, ones, ones_like, empty, empty_like, arange, linspace, numpy.random.Generator.rand, numpy.random.Generator.randn, fromfunction, fromfile
