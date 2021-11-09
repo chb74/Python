@@ -33,34 +33,34 @@ import numpy as np
 a = np.arange(15).reshape(3, 5)
 
 print(a)
-// array([[ 0,  1,  2,  3,  4],
-//        [ 5,  6,  7,  8,  9],
-//        [10, 11, 12, 13, 14]]
+# array([[ 0,  1,  2,  3,  4],
+#        [ 5,  6,  7,  8,  9],
+#        [10, 11, 12, 13, 14]]
  
 print(a.shape) 
-// (3, 5) 
+# (3, 5) 
 
 print(a.ndim)
-// 2 -- 2 Dimension 
+# 2 -- 2 Dimension 
 
 print(a.dtype.name)
-// int64 
+# int64 
 
 print(a.itemsize)
-// 8 
+# 8 
 
 print(a.size)
-// 15 
+# 15 
 
 print(type(a))
-// <class 'numpy.ndarray'>
+# <class 'numpy.ndarray'>
 
 b = np.array([6, 7, 8])
 print(b) 
-// array([6, 7, 8])
+# array([6, 7, 8])
 
 print(type(b))
-// <class 'numpy.ndarray'> 
+# <class 'numpy.ndarray'> 
 
 ```
 
@@ -72,14 +72,14 @@ print(type(b))
 import numpy as np
 a = np.array([2, 3, 4])
 print(a)
-// array([2, 3, 4]) - just print [2, 3, 4]
+# array([2, 3, 4]) - just print [2, 3, 4]
 
 print(a.dtype)
-// dtype('int64')
+# dtype('int64')
 
 b = np.array([1.2, 3.5, 5.2])
 print(b.dtype)
-// float64 
+# float64 
 ```
 시퀀스 오류는 단일 시퀀스를 인수로 제공하는 대신 여러 인수로 배열을 호출하는 것으로 구성된다. 아래 코드를 보라 
 ```python
@@ -96,8 +96,8 @@ import numpy as np
 
 b = np.array([(1.5, 2, 3), (4, 5, 6)]) 
 print(b)
-// array([[1.5, 2. , 3. ],
-//       [4. , 5. , 6. ]])
+# array([[1.5, 2. , 3. ],
+#       [4. , 5. , 6. ]])
 ```
 배열의 유형은 생성시 명시적으로 지정할 수도 있습니다. 
 
@@ -106,8 +106,31 @@ import numpy as np
 
 c = np.array([[1, 2], [3, 4]], dtype=complex)
 print(c) 
-// array([[1.+0.j, 2.+0.j],
-//       [3.+0.j, 4.+0.j]])
+# array([[1.+0.j, 2.+0.j],
+#       [3.+0.j, 4.+0.j]])
 ```
+배열의 요소는 원래 알려지지 않았지만 크기는 알려져 있다. 따라서 Numpy는 초기 자리 표시자 콘텐츠로 배열을 생성하는 여러기능을 제공한다. 이는 배열을 확장해야 하는 필요성과 값비싼 작업을 최소화 한다. 
+함수 zeros는 0으로 가득 찬 배열을 만들고, 함수 ones는 1로 가득찬 배열을 만들고, empty 함수는 초기 내용이 무작위이고 메모리 상태에 따라 달라지는 배열을 만든다. 기본적으로 생성된 배열의 dtype는 float64이지만 키워드 인수 dtype을 통해 지정할 수 있다. 
 
+```python 
+import numpy as np 
+
+a = np.zeros((3, 4)) 
+print(a)
+# array([[0., 0., 0., 0.],
+#        [0., 0., 0., 0.],
+#        [0., 0., 0., 0.]])
+
+b = np.ones((2, 3, 4), dtype=np.int16)
+# array([[[1, 1, 1, 1],
+#        [1, 1, 1, 1],
+#        [1, 1, 1, 1]],
+
+#       [[1, 1, 1, 1],
+#       [1, 1, 1, 1],
+#        [1, 1, 1, 1]]], dtype=int16)
+c = np.empty((2, 3))
+# array([[3.73603959e-262, 6.02658058e-154, 6.55490914e-260],  # may vary
+       [5.30498948e-313, 3.14673309e-307, 1.00000000e+000]])
+```
 
