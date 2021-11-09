@@ -1,0 +1,113 @@
+# <strong> 기본의 이해 </strong>
+Numpy의 주요 객체는 동종 다차원 배열이다. 이것은 음이 아닌 정수의 튜플에 의해 인덱싱된 모두 같은 유형의 요소(보통은 숫자이다.) 의 테이블이다. Numpy에서는 차원을 축이라고 한다. 
+
+예를들어, 3D공간 [1, 2, 1]에서 점의 좌표는 하나의 축을 가진다. 이축에는 3개의 요소가 있으므로 길이가 3이라고 한다. 아래 그림의 예에서 배열에는 2개의 축이 있다. 첫번째 축의 길이는 2이고 두 번째 축의 길이는 3이다. 
+
+```python
+[[1., 0., 0.], 
+ [0., 1., 2.]]
+```
+Numpy의 배열 클래스는 ndarray라고 한다. 별치 배열로도 알려져 있다. numpy.array는 1차원 배열만 처리하고 더 적은 기능을 제공하는 표준 Python 라이브러리 클래스 array.array와 동일하지 않다. ndarray객체의 더 중요한 속성은 다음과 같다. 
+
+* ndarray.ndim
+배열의 축(차원) 수 
+
+* ndarray.shape 
+배열의 차원. 이것은 각 차원에서 배열의 크기를 나타내는 정수의 튜플이다. n개의 행과 m개의 열이 있는 행렬의 경우 모양은 (n, m)이다. 따라서 모양 튜플의 길이는 축의 수 ndim이다. 
+
+* ndarray.size 
+배열의 총 요수 수이다. 이것은 모양 요소의 곱과 같다. (2, 3) => 6 
+
+* ndarray.dtype 
+배열의 요수 유형을 설명하는 개체이다. 표준 POython 유형을 사용하여 dtype을 만들거나 지정할 수 있다. 또한 Numpy는 자체 유형을 제공한다. numpy.int32, numpy.int16 및 nupy.float64 
+
+* ndarray.itemsize 
+배열의 각 요소의 크기 (바이트)이다. 예를 들어 float64유형의 요소 배열의 항목 크기는 8(=64/8)인 반면 complex32 유형 중 하나는 항목 크기가 4(32/8)이다. ndarray.dtype.itemsize와 동일하다. 
+
+* ndarray.data 
+배열의 실제 요소를 포함하는 버퍼. 일반적으로 인덱싱 기능을 사용하여 배열의 요소에 액세스하기 때문에 이 속성을 사용할 필요가 없다. 
+
+### <strong> 예제</strong>
+```python
+import numpy as np
+a = np.arange(15).reshape(3, 5)
+
+print(a)
+// array([[ 0,  1,  2,  3,  4],
+//        [ 5,  6,  7,  8,  9],
+//        [10, 11, 12, 13, 14]]
+ 
+print(a.shape) 
+// (3, 5) 
+
+print(a.ndim)
+// 2 -- 2 Dimension 
+
+print(a.dtype.name)
+// int64 
+
+print(a.itemsize)
+// 8 
+
+print(a.size)
+// 15 
+
+print(type(a))
+// <class 'numpy.ndarray'>
+
+b = np.array([6, 7, 8])
+print(b) 
+// array([6, 7, 8])
+
+print(type(b))
+// <class 'numpy.ndarray'> 
+
+```
+
+### <strong> 배열 생성</strong>
+배열을 만드는 방법에는 여러 가지가 있다. 
+
+예를들어, 배열 함수를 사용하여 일반 Python list 또는 튜플에서 배열을 만들 수 있다. 결과 배열의 유형은 시퀀스의 요소 유형에서 추론된다. 
+```python
+import numpy as np
+a = np.array([2, 3, 4])
+print(a)
+// array([2, 3, 4]) - just print [2, 3, 4]
+
+print(a.dtype)
+// dtype('int64')
+
+b = np.array([1.2, 3.5, 5.2])
+print(b.dtype)
+// float64 
+```
+시퀀스 오류는 단일 시퀀스를 인수로 제공하는 대신 여러 인수로 배열을 호출하는 것으로 구성된다. 아래 코드를 보라 
+```python
+import numpy as np 
+a = np.array(1, 2, 3, 4) # -- WRONG 
+Trackback (most recent call last):
+	...
+TypeError: array() takes from 1 to 2 positional arguments but 4 were given
+a = np.array([1, 2, 3, 4]) # -- RIGHT !!!
+```
+배열은 시퀀스의 시퀀스를 2차원 배열로, 시퀀스의 시퀀스의 시퀀스는 3차원 배열로 변환한다. 
+```python 
+import numpy as np 
+
+b = np.array([(1.5, 2, 3), (4, 5, 6)]) 
+print(b)
+// array([[1.5, 2. , 3. ],
+//       [4. , 5. , 6. ]])
+```
+배열의 유형은 생성시 명시적으로 지정할 수도 있습니다. 
+
+```python 
+import numpy as np 
+
+c = np.array([[1, 2], [3, 4]], dtype=complex)
+print(c) 
+// array([[1.+0.j, 2.+0.j],
+//       [3.+0.j, 4.+0.j]])
+```
+
+
