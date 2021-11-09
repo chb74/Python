@@ -72,5 +72,14 @@ print(a)
 a = np.arange(int(1e8))
 b = a[:100].copy()
 del a 					# the memory of ``a`` can be released. 
-
 ```
+b = a[:100]이 대신 사용되면 a는 b에 의해 참조되며 del a가 실행되더라도 메모리에 유지된다. 
+
+## <strong> 함수와 메소드 개요</strong>
+다음은 범주별로 정렬된 몇 가지 유용한 numpy 함수 및 메서드 이름 목록이다. 전체 목록은 루틴을 참조.
+
+### 배열 생성 (Array Creation)
+	[arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange), [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array), [copy](https://numpy.org/doc/stable/reference/generated/numpy.copy.html#numpy.copy), [empty](https://numpy.org/doc/stable/reference/generated/numpy.empty.html#numpy.empty), [empty_like](https://numpy.org/doc/stable/reference/generated/numpy.empty_like.html#numpy.empty_like), [eye](https://numpy.org/doc/stable/reference/generated/numpy.eye.html#numpy.eye), [fromfile](https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html#numpy.fromfile), [fromfunction](https://numpy.org/doc/stable/reference/generated/numpy.fromfunction.html#numpy.fromfunction), [identity](https://numpy.org/doc/stable/reference/generated/numpy.identity.html#numpy.identity), [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace), [logspace](https://numpy.org/doc/stable/reference/generated/numpy.logspace.html#numpy.logspace), [mgrid](https://numpy.org/doc/stable/reference/generated/numpy.mgrid.html#numpy.mgrid), [ogrid](https://numpy.org/doc/stable/reference/generated/numpy.ogrid.html#numpy.ogrid), [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones), [ones_like](https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html#numpy.ones_like), [r_](https://numpy.org/doc/stable/reference/generated/numpy.r_.html#numpy.r_), [zeros](https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros), [zeros_like](https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like)
+
+### 변환 (Conversions)
+	[ndarray.astype](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype), [atleast_1d](https://numpy.org/doc/stable/reference/generated/numpy.atleast_1d.html#numpy.atleast_1d), [atleast_2d](https://numpy.org/doc/stable/reference/generated/numpy.atleast_2d.html#numpy.atleast_2d), [atleast_3d](https://numpy.org/doc/stable/reference/generated/numpy.atleast_3d.html#numpy.atleast_3d), [mat](https://numpy.org/doc/stable/reference/generated/numpy.mat.html#numpy.mat)
