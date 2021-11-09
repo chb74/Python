@@ -27,7 +27,7 @@ Numpy의 배열 클래스는 ndarray라고 한다. 별치 배열로도 알려져
 * ndarray.data 
 배열의 실제 요소를 포함하는 버퍼. 일반적으로 인덱싱 기능을 사용하여 배열의 요소에 액세스하기 때문에 이 속성을 사용할 필요가 없다. 
 
-### <strong> 예제</strong>
+## <strong> 예제</strong>
 ```python
 import numpy as np
 a = np.arange(15).reshape(3, 5)
@@ -64,7 +64,7 @@ print(type(b))
 
 ```
 
-### <strong> 배열 생성</strong>
+## <strong> 배열 생성</strong>
 배열을 만드는 방법에는 여러 가지가 있다. 
 
 예를들어, 배열 함수를 사용하여 일반 Python list 또는 튜플에서 배열을 만들 수 있다. 결과 배열의 유형은 시퀀스의 요소 유형에서 추론된다. 
@@ -159,7 +159,7 @@ f = np.sin(x)
 > <strong>다음과 같은 함수를 찾아보면 좋다. </strong>
 >> [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array), [zeros](https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros), [zeros_like](https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like), [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones), [ones_like](https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html#numpy.ones_like), [empty](https://numpy.org/doc/stable/reference/generated/numpy.empty.html#numpy.empty), [empty_like](https://numpy.org/doc/stable/reference/generated/numpy.empty_like.html#numpy.empty_like), [arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange), [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace), numpy.random.Generator.rand, numpy.random.Generator.randn, [fromfunction](https://numpy.org/doc/stable/reference/generated/numpy.fromfunction.html#numpy.fromfunction), [fromfile](https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html#numpy.fromfile)
 
-### <strong>배열 출력하기</strong>
+## <strong>배열 출력하기</strong>
 배열을 인쇄할 때 nupy는 중첩목록과 유사한 방식으로 배열을 표시하지만 레이아웃은 다음과 같다. 
 * 마지막 축은 왼쪽에서 오른쪽으로 인쇄되고, 
 * 마지막에서 두 번째는 위에서 아래로 인쇄되고, 
@@ -218,8 +218,7 @@ np.set_printoptions(threshold=sys.maxsize)
 ```
 
 
-### <strong> Basic Operations </strong>
----
+## <strong> Basic Operations </strong>
 배열의 산술 연산자는 요소별로 적용된다. 새 배열이 생성되고 결과로 채워진다. 
 ```python
 import numpy as np
