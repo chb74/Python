@@ -348,9 +348,90 @@ print(np.add(a, b))
 # array([2., 0., 6.])
 
 ```
-> <strong>아래 내용을 참조할 것.</strong>
+> <strong>보다 많은 함수는 아래 내용을 참조할 것.</strong>
 >> [all](https://numpy.org/doc/stable/reference/generated/numpy.all.html#numpy.all), [any](https://numpy.org/doc/stable/reference/generated/numpy.any.html#numpy.any), [apply_along_axis](https://numpy.org/doc/stable/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis), [argmax](https://numpy.org/doc/stable/reference/generated/numpy.argmax.html#numpy.argmax), [argmin](https://numpy.org/doc/stable/reference/generated/numpy.argmin.html#numpy.argmin), [argsort](https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort), [average](https://numpy.org/doc/stable/reference/generated/numpy.average.html#numpy.average), [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html#numpy.bincount), [ceil](https://numpy.org/doc/stable/reference/generated/numpy.ceil.html#numpy.ceil), [clip](https://numpy.org/doc/stable/reference/generated/numpy.clip.html#numpy.clip), [conj](https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj), [corrcoef](https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html#numpy.corrcoef), [cov](https://numpy.org/doc/stable/reference/generated/numpy.cov.html#numpy.cov), [cross](https://numpy.org/doc/stable/reference/generated/numpy.cross.html#numpy.cross), [cumprod](https://numpy.org/doc/stable/reference/generated/numpy.cumprod.html#numpy.cumprod), [cumsum](https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html#numpy.cumsum), [diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html#numpy.diff), [dot](https://numpy.org/doc/stable/reference/generated/numpy.dot.html#numpy.dot), [floor](https://numpy.org/doc/stable/reference/generated/numpy.floor.html#numpy.floor), [inner](https://numpy.org/doc/stable/reference/generated/numpy.inner.html#numpy.inner), [invert](https://numpy.org/doc/stable/reference/generated/numpy.invert.html#numpy.invert), [lexsort](https://numpy.org/doc/stable/reference/generated/numpy.lexsort.html#numpy.lexsort), [max](https://docs.python.org/dev/library/functions.html#max), [maximum](https://numpy.org/doc/stable/reference/generated/numpy.maximum.html#numpy.maximum), [mean](https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean), [median](https://numpy.org/doc/stable/reference/generated/numpy.median.html#numpy.median), [min](https://docs.python.org/dev/library/functions.html#min), [minimum](https://numpy.org/doc/stable/reference/generated/numpy.minimum.html#numpy.minimum), [nonzero](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html#numpy.nonzero), [outer](https://numpy.org/doc/stable/reference/generated/numpy.outer.html#numpy.outer), [prod](https://numpy.org/doc/stable/reference/generated/numpy.prod.html#numpy.prod), [re](https://docs.python.org/dev/library/re.html#module-re), [round](https://docs.python.org/dev/library/functions.html#round), [sort](https://numpy.org/doc/stable/reference/generated/numpy.sort.html#numpy.sort), [std](https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std), [sum](https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum), [trace](https://numpy.org/doc/stable/reference/generated/numpy.trace.html#numpy.trace), [transpose](https://numpy.org/doc/stable/reference/generated/numpy.transpose.html#numpy.transpose), [var](https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var), [vdot](https://numpy.org/doc/stable/reference/generated/numpy.vdot.html#numpy.vdot), [vectorize](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html#numpy.vectorize), [where](https://numpy.org/doc/stable/reference/generated/numpy.where.html#numpy.where)
+## <strong>인덱스, 슬라이싱 과 반복자 (Indexing, Slicing, Iterating)
 
+1차원 배열은 list 및 기타 python 시퀀스와 마찬가지로 인덱싱, 슬라이스 및 반복될수 있다. 
+```python
+import numpy as np 
 
+a = np.arange(10)**3
+print(a)
+# array([  0,   1,   8,  27,  64, 125, 216, 343, 512, 729])
+print(a[2:5])
+# array([ 8, 27, 64])
+a[:6:2] = 1000
+print(a)
+# array([1000,    1, 1000,   27, 1000,  125,  216,  343,  512,  729])
+print(a[::-1]) 	# reversed a 
+# array([ 729,  512,  343,  216,  125, 1000,   27, 1000,    1, 1000])
+for i in a:
+	print(i**(1 / 3.))
+#...
+#9.999999999999998
+#1.0
+#9.999999999999998
+#3.0
+#9.999999999999998
+#4.999999999999999
+#5.999999999999999
+#6.999999999999999
+#7.999999999999999
+#8.999999999999998
+```
+다차원 배열은 축당 하나의 인덱스를 가질 수 있습니다. 이러한 인덱스는 쉼표로 구분된 튜플에 제공된다. 
+```python
+import numpy as np
 
+def f(x, y):
+	return 10 * x + y
 
+b = np.fromfunction(f, (5, 4), dtype=int)
+print(b)
+# array([[ 0,  1,  2,  3],
+#       [10, 11, 12, 13],
+#       [20, 21, 22, 23],
+#       [30, 31, 32, 33],
+#       [40, 41, 42, 43]])
+print(b[2, 3])
+# 23 
+print(b[0:5, 1]) 	# each row in the second column of b 
+# array([ 1, 11, 21, 31, 41])
+print(b[:, 1])		# equivalent to the previous example 
+# array([ 1, 11, 21, 31, 41])
+print(b[1:3, :])	# each column in the second and third row of b 
+# array([[10, 11, 12, 13],
+#       [20, 21, 22, 23]])
+
+```
+축 수보다 적은 이덱스가 제공되면 누락된 인덱스는 완전한 조각으로 간주됨. 
+```python
+import numpy as np
+
+print(b[-1])		# the last row. Equivalent to b[-1, :]
+# array([40, 41, 42, 43])
+```
+b[i]에서 대괄호 안의 표현식은 i로 처리되고 나머지 축을 나타내는데 필요한 만큼 :의 인스턴스가 뒤따른다. numpy에서는 점을 사용하여 이것을 b[i, ...]로 작성할 수도 있다. 
+점(...)은 완전한 인덱싱 튜플을 생성하는데 필요한 만큼의 콜론을 나타낸다. 예를 들어, x 가 5개의 축이 있는 배열의 경우 
+
+* x[1, 2, ...] 와 x[1, 2, :, :, :], 는 동일하다 
+* x[..., 3] to x[:, :, :, :, 3] 
+* x[4, ..., 5, :] to x[4, :, :, 5, :] 
+```python 
+import numpy as np
+
+c = np.array([[[ 0, 1, 2], 	# a 3D array (two stacked 2D arrays)
+				[ 10, 12, 13]],
+				[[100, 101, 102],
+				 [110, 112, 113]]])
+print(c.shape)
+# (2, 2, 3)
+print(c[1, ...])		# same as c[1, :, :] or c[1]
+# array([[100, 101, 102],
+#       [110, 112, 113]])
+print(c[..., 2])		# same as c[:, :, 2]
+# array([[  2,  13],
+#       [102, 113]])
+
+```
