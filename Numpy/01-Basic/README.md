@@ -297,4 +297,60 @@ print(d.dtype.name)
 # 'complex128'
 
 ```
+배열에 있는 모든 요소의 합을 계산하는 것과 같은 많은 단항 연산은 ndarray 클래스의 메소드로 구현된다. 
+```python 
+import numpy as np
+
+rg = np.random.default_rng(1)		# 기본 난수 생성기의 인스턴스 생성 
+a = rg.random((2, 3))
+print(a) 
+# array([[0.82770259, 0.40919914, 0.54959369],
+#       [0.02755911, 0.75351311, 0.53814331]])
+print(a.sum())
+# 3.1057109529998157
+print(a.min())
+# 0.027559113243068367
+print(a.max())
+# 0.8277025938204418
+```
+기본적으로 이러한 작업은 배열의 모양에 관계없이 마치 숫자 목록인 것처럼 배열에 적용됩니다. 그러나 axis 매개변수를 지정하면 배열의 지정된 축을 따라 작업을 적용할 수 있다. 
+```python 
+import numpy as np
+
+a = np.arange(12).reshape(3, 4)
+print(a)
+# array([[ 0,  1,  2,  3],
+#       [ 4,  5,  6,  7],
+#       [ 8,  9, 10, 11]])
+print(a.sum(axis=0))			# sum of each column 
+# array([12, 15, 18, 21])
+print(a.min(axis=1))
+# array([0, 4, 8])
+print(a.cumsum(axis=1)) 		# cumulative sum along each row 
+# array([[ 0,  1,  3,  6],
+#       [ 4,  9, 15, 22],
+#       [ 8, 17, 27, 38]])
+```
+## <strong>Universal Functions</strong>
+numpy는 sin, cos, exp와 같은 친숙한 수학 함수를 제공한다. numpy에서는 이것을 "범용 함수"(ufunc)라고 한다. numpy 내에서 이러한 함수는 배열에서 요소별로 작동하여 배열을 출력으로 생성한다. 
+```python
+import numpy as np
+
+a = np.arange(3)
+print(a) 
+# array([0, 1, 2])
+print(np.exp(a))
+# array([1.        , 2.71828183, 7.3890561 ])
+print(np.sqrt(a))
+# array([0.        , 1.        , 1.41421356])
+b = np.array([2., -1., 4.])
+print(np.add(a, b))
+# array([2., 0., 6.])
+
+```
+> <strong>아래 내용을 참조할 것.</strong>
+>> [all](https://numpy.org/doc/stable/reference/generated/numpy.all.html#numpy.all), [any](https://numpy.org/doc/stable/reference/generated/numpy.any.html#numpy.any), [apply_along_axis](https://numpy.org/doc/stable/reference/generated/numpy.apply_along_axis.html#numpy.apply_along_axis), [argmax](https://numpy.org/doc/stable/reference/generated/numpy.argmax.html#numpy.argmax), [argmin](https://numpy.org/doc/stable/reference/generated/numpy.argmin.html#numpy.argmin), [argsort](https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort), [average](https://numpy.org/doc/stable/reference/generated/numpy.average.html#numpy.average), [bincount](https://numpy.org/doc/stable/reference/generated/numpy.bincount.html#numpy.bincount), [ceil](https://numpy.org/doc/stable/reference/generated/numpy.ceil.html#numpy.ceil), [clip](https://numpy.org/doc/stable/reference/generated/numpy.clip.html#numpy.clip), [conj](https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj), [corrcoef](https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html#numpy.corrcoef), [cov](https://numpy.org/doc/stable/reference/generated/numpy.cov.html#numpy.cov), [cross](https://numpy.org/doc/stable/reference/generated/numpy.cross.html#numpy.cross), [cumprod](https://numpy.org/doc/stable/reference/generated/numpy.cumprod.html#numpy.cumprod), [cumsum](https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html#numpy.cumsum), [diff](https://numpy.org/doc/stable/reference/generated/numpy.diff.html#numpy.diff), [dot](https://numpy.org/doc/stable/reference/generated/numpy.dot.html#numpy.dot), [floor](https://numpy.org/doc/stable/reference/generated/numpy.floor.html#numpy.floor), [inner](https://numpy.org/doc/stable/reference/generated/numpy.inner.html#numpy.inner), [invert](https://numpy.org/doc/stable/reference/generated/numpy.invert.html#numpy.invert), [lexsort](https://numpy.org/doc/stable/reference/generated/numpy.lexsort.html#numpy.lexsort), [max](https://docs.python.org/dev/library/functions.html#max), [maximum](https://numpy.org/doc/stable/reference/generated/numpy.maximum.html#numpy.maximum), [mean](https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean), [median](https://numpy.org/doc/stable/reference/generated/numpy.median.html#numpy.median), [min](https://docs.python.org/dev/library/functions.html#min), [minimum](https://numpy.org/doc/stable/reference/generated/numpy.minimum.html#numpy.minimum), [nonzero](https://numpy.org/doc/stable/reference/generated/numpy.nonzero.html#numpy.nonzero), [outer](https://numpy.org/doc/stable/reference/generated/numpy.outer.html#numpy.outer), [prod](https://numpy.org/doc/stable/reference/generated/numpy.prod.html#numpy.prod), [re](https://docs.python.org/dev/library/re.html#module-re), [round](https://docs.python.org/dev/library/functions.html#round), [sort](https://numpy.org/doc/stable/reference/generated/numpy.sort.html#numpy.sort), [std](https://numpy.org/doc/stable/reference/generated/numpy.std.html#numpy.std), [sum](https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum), [trace](https://numpy.org/doc/stable/reference/generated/numpy.trace.html#numpy.trace), [transpose](https://numpy.org/doc/stable/reference/generated/numpy.transpose.html#numpy.transpose), [var](https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var), [vdot](https://numpy.org/doc/stable/reference/generated/numpy.vdot.html#numpy.vdot), [vectorize](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html#numpy.vectorize), [where](https://numpy.org/doc/stable/reference/generated/numpy.where.html#numpy.where)
+
+
+
 
