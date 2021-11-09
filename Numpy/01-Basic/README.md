@@ -435,3 +435,50 @@ print(c[..., 2])		# same as c[:, :, 2]
 #       [102, 113]])
 
 ```
+다차원 배열에 대한 반복은 첫 번째 축에 대해 수행된다. 
+
+```python
+for row in b:
+	print(row)
+
+# [0 1 2 3]
+# [10 11 12 13]
+# [20 21 22 23]
+# [30 31 32 33]
+# [40 41 42 43]
+```
+그러나 배열의 각 요소에 대한 작업을 수행하려는 경우 배열의 모든 요소에 대한 반복자인 flat 속성을 사용할 수 있다. 
+
+```python
+import numpy as np
+
+b = np.fromfunction(f, (5, 4), dtype=int)
+print(b)
+
+for element in b.flat:
+	print(element)
+...
+#0
+#1
+#2
+#3
+#10
+#11
+#12
+#13
+#20
+#21
+#22
+#23
+#30
+#31
+#32
+#33
+#40
+#41
+#42
+#43
+```
+> <strong> 더 참조하기</strong>
+>> [Indexing](https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing), [Indexing](https://numpy.org/doc/stable/reference/arrays.indexing.html#arrays-indexing)(reference), [newaxis](https://numpy.org/doc/stable/reference/constants.html#numpy.newaxis), [ndenumerate](https://numpy.org/doc/stable/reference/generated/numpy.ndenumerate.html#numpy.ndenumerate), [indices](https://numpy.org/doc/stable/reference/generated/numpy.indices.html#numpy.indices)
+
