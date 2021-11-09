@@ -133,4 +133,28 @@ c = np.empty((2, 3))
 # array([[3.73603959e-262, 6.02658058e-154, 6.55490914e-260],  # may vary
        [5.30498948e-313, 3.14673309e-307, 1.00000000e+000]])
 ```
+숫자 시퀀스를 생성하기 위해서 numpy는 파이썬 내장 범위와 유사 하지만 배열을 반환하는 arange 함수를 제공한다. 
+```python 
+import numpy as np
 
+a = np.arange(10, 30, 5)
+print(a) 
+# array([10, 15, 20, 25])
+b = np.arange(0, 2, 0.3)	# it accepts float arguments 
+print(b) 
+# array([0. , 0.3, 0.6, 0.9, 1.2, 1.5, 1.8])
+
+```
+범위가 부동소수점 인수와 함께 사용되는 경우 유한 부동 소수점 정밀도로 인해 일반적으로 획득한 요소 수를 예측할 수 없다. 이러한 이유로 일반적으로 단계 대신 원하는 요소 수를 인수로 받는 `linspace` 함수를 사용하는 것도 좋다. 
+
+```python
+from numpy import pi 
+a = np.linspace(0, 2, 9)		# 9 numbers from 0 to 2 
+print(a) 
+# array([0.  , 0.25, 0.5 , 0.75, 1.  , 1.25, 1.5 , 1.75, 2.  ])
+x = np.linspace(0, 2 * pi, 100)	# useful to evaluate function at lots of points 
+f = np.sin(x) 
+
+```
+> 다음과 같은 함수를 찾아보면 좋다. 
+>> array, zeros, zeros_like, ones, ones_like, empty, empty_like, arange, linspace, numpy.random.Generator.rand, numpy.random.Generator.randn, fromfunction, fromfile
