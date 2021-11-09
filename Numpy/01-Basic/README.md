@@ -158,3 +158,143 @@ f = np.sin(x)
 ```
 > <strong>다음과 같은 함수를 찾아보면 좋다. </strong>
 >> [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array), [zeros](https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros), [zeros_like](https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like), [ones](https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones), [ones_like](https://numpy.org/doc/stable/reference/generated/numpy.ones_like.html#numpy.ones_like), [empty](https://numpy.org/doc/stable/reference/generated/numpy.empty.html#numpy.empty), [empty_like](https://numpy.org/doc/stable/reference/generated/numpy.empty_like.html#numpy.empty_like), [arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange), [linspace](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace), numpy.random.Generator.rand, numpy.random.Generator.randn, [fromfunction](https://numpy.org/doc/stable/reference/generated/numpy.fromfunction.html#numpy.fromfunction), [fromfile](https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html#numpy.fromfile)
+
+### <strong>배열 출력하기</strong>
+배열을 인쇄할 때 nupy는 중첩목록과 유사한 방식으로 배열을 표시하지만 레이아웃은 다음과 같다. 
+* 마지막 축은 왼쪽에서 오른쪽으로 인쇄되고, 
+* 마지막에서 두 번째는 위에서 아래로 인쇄되고, 
+* 나머지 부분도 위에서 아래로 인쇄되며 각 슬라이스는 빈 줄로 다음 슬라이스와 구분된다. 
+
+
+그런 다음 1차원 배열은 행으로, 2차원 행렬과 3차원 행렬 list 로 인쇄된다. 
+```python 
+import numpy as np 
+
+a = np.arange(6)					# 1D array 
+print(a)
+# [0 1 2 3 4 5]
+
+b = np.arange(12).reshape(4, 3)		# 2D array
+print(b)
+# [[ 0  1  2]
+#  [ 3  4  5]
+#  [ 6  7  8]
+#  [ 9 10 11]]
+
+c = np.arange(24).reshape(2, 3, 4)	# 3D array 
+print(c)
+#	[[[ 0  1  2  3]
+#  [ 4  5  6  7]
+#  [ 8  9 10 11]]
+#
+# [[12 13 14 15]
+#  [16 17 18 19]
+#  [20 21 22 23]]]
+
+```
+reshape에 대한 자세한 내용은 아래의 내용을 참조한다. 
+배열이 너무 커서 인쇄할 수 없는 경우 numpy는 자동으로 배열의 중앙 부분을 건너뛰고 모서리만 인쇄한다. 
+```python
+import numpy as np
+
+print(np.arange(10000))
+# [   0    1    2 ... 9997 9998 9999]
+print(np.arange(10000).reshape(100, 100))
+#[[   0    1    2 ...   97   98   99]
+# [ 100  101  102 ...  197  198  199]
+# [ 200  201  202 ...  297  298  299]
+# ...
+# [9700 9701 9702 ... 9797 9798 9799]
+# [9800 9801 9802 ... 9897 9898 9899]
+# [9900 9901 9902 ... 9997 9998 9999]]
+
+```
+이 동작을 비활성화하고 numpy가 전체 배열을 인쇄하도록 하려면 `set_printoptions`를 사용하여 인쇄 옵션을 변경 할 수 있다. 
+```python
+import numpy as np 
+
+np.set_printoptions(threshold=sys.maxsize)
+# sys module should be imported 
+```
+
+
+### <strong> Basic Operations </strong>
+배열의 산술 연산자는 요소별로 적용된다. 새 배열이 생성되고 결과로 채워진다. 
+```python
+import numpy as np
+a = np.array([20, 30, 40, 50])
+b = np.arange(4)
+print(b) 
+# array([0, 1, 2, 3])
+c = a - b 
+print(c)
+# array([20, 29, 38, 47])
+print(b**2)
+# array([0, 1, 4, 9])
+print(10 * np.sin(a))
+# array([ 9.12945251, -9.88031624,  7.4511316 , -2.62374854])
+print(a < 35)
+# array([ True,  True, False, False])
+```
+많은 행렬 언어와 달리 곱 연산자 *는 numpy 배열에서 요소별로 작동한다. 행렬 곱은 @연산자(python >= 3.5) 또는 점 함수 또는 메서드를 사용하여 수행할 수 있다. 
+
+```python 
+import numpy as np 
+
+a = np.array([[1, 1],
+				[0, 1]])
+b = np.array([[2, 0], 
+				[3, 4]])
+print(a * b)	# elementwise product 
+# array([[2, 0],
+#       [0, 4]])
+print(a @ b) 	# matrix product 
+# array([[5, 4],
+#       [3, 4]])
+print(a.dot(b))	# another matrix product 
+# array([[5, 4],
+#       [3, 4]])
+```
++= 및 *= 와 같은 일부 작업은 새 배열을 생성하는 대신 기존 배열을 수정하는 역활을 한다. 
+```python
+import numpy as np
+
+rg = np.random.default_rng(1)		# 기본 난수 생성기의 인스턴스 생성 
+a = np.ones((2, 3), dtype=int)
+b = rg.random((2, 3))
+a *= 3
+print(a) 
+# array([[3, 3, 3],
+#       [3, 3, 3]])
+b += a
+print(b)
+# array([[3.51182162, 3.9504637 , 3.14415961],
+#       [3.94864945, 3.31183145, 3.42332645]])
+a += b	# b is not automatically converted to integer type 
+#Trackback (most recent call last):
+#	...
+#numpy.core._exceptions._UFuncOutputCastingError: Cannot cast ufunc 'add' output from dtype('float64') to dtype('int64') with casting rule 'same_kind'
+
+```
+다른 유형의 배열로 작업할 때 결과 배열의 유형은 더 일반적이거나 정확한 배열에 해당한다. (업캐스팅으로 알려진 동작)
+```python 
+import numpy as np 
+
+a = np.ones(3, dtype=np.int32)
+b = np.linspace(0, pi, 3)
+print(b.dtype.name)
+# 'float64'
+c = a + b 
+print(c)
+# array([1.        , 2.57079633, 4.14159265])
+print(c.dtype.name)
+# 'float64' 
+d = np.exp(c * 1j)
+print(d)
+# array([ 0.54030231+0.84147098j, -0.84147098+0.54030231j,
+#       -0.54030231-0.84147098j])
+print(d.dtype.name)
+# 'complex128'
+
+```
+
