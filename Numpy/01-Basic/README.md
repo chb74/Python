@@ -219,6 +219,7 @@ np.set_printoptions(threshold=sys.maxsize)
 
 
 ### <strong> Basic Operations </strong>
+***
 배열의 산술 연산자는 요소별로 적용된다. 새 배열이 생성되고 결과로 채워진다. 
 ```python
 import numpy as np
