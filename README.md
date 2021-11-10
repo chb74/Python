@@ -1,3 +1,3 @@
-# Python
----
-AWS에서 사용할 수 있는 파이썬 소스입니다. 
+## BOTO3 for AWS 
+AWS 자동화를 위한 boto3를 활용한 python3용 소스 코드 
+
