@@ -1034,4 +1034,15 @@ ts.plot();
 ```
 결과는 ![Plotting Image](plotting.png)
 
+DataFrame에서 plot() 메서드는 레이블이 있는 모든 열을 플롯하는데 편리하다. 
+```python
+df = pd.DataFrame(
+    np.random.randn(1000, 4), index = ts.index, columns = ["A", "B", "C", "D"]
+)
+df = df.cumsum()
+plt.figure();
+df.plot();
+plt.legend(loc = 'best');
+```
 
+결과는 ![Plotting 2](plotting2.png)
