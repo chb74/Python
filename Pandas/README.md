@@ -191,7 +191,7 @@ print(df.sort_values(by="B"))
 
 [인덱싱 및 데이터 선택](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing) 및 [MultiIndex / 고급 인덱싱](https://pandas.pydata.org/docs/user_guide/advanced.html#advanced)
 
-## <strong>구하기 (Getting)</strong>
+### <strong>구하기 (Getting)</strong>
 df.A와 동일한 시리즈를 생성하는 단일 열 선택 
 
 ```python 
@@ -219,7 +219,7 @@ print(df["20130102":"20130104"])
 # 2013-01-03 -0.861849 -2.104569 -0.494929  1.071804
 # 2013-01-04  0.721555 -0.706771 -1.039575  0.271860
 ```
-## <strong> 라벨로 선택하기 (Selection by label) </strong>
+### <strong> 라벨로 선택하기 (Selection by label) </strong>
 >참조
 >> [보다 더 많은 정보](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-label)
 
@@ -273,7 +273,7 @@ print(df.at[dates[0], "A"])
 # 0.4691122999071863
 ```
 
-## <strong> 위치로 선택하기 (Selection by position) </strong>
+### **위치로 선택하기 (Selection by position)**
 보다 더 자세한 사항은 [여기](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-integer)
 
 전달된 정수의 위치를 통해서 선택하기 
@@ -335,7 +335,7 @@ print(df.iat[1, 1])
 # -0.17321464905330858
 ```
 
-## <strong> 부울 인덱싱 (Boolean Indexing)</strong>
+### **부울 인덱싱 (Boolean Indexing)**
 단일 열의 값을 사용하여 데이터 선택 
 
 ```python 
@@ -378,7 +378,7 @@ print(df2[df2["E"].isin(["two", "four"])])
 # 2013-01-05 -0.424972  0.567020  0.276232 -1.087401  four
 ```
 
-## <strong> 설정하기 (Setting) </strong>
+### **설정하기 (Setting)**
 새 열을 설정하면 인덱스별로 데이터가 자동으로 정렬된다. 
 
 ```python 
@@ -552,4 +552,148 @@ print(df.apply(lambda x: x.max() - x.min()))
 # F    4.000000
 # dtype: float64
 ```
+
+### **히스토그래밍**
+보다 자세한 내용은 [여기](https://pandas.pydata.org/docs/user_guide/basics.html#basics-discretization)
+
+```python 
+s = pd.Series(np.random.randint(0, 7, size=10))
+print(s)
+# 0    4
+# 1    2
+# 2    1
+# 3    2
+# 4    6
+# 5    4
+# 6    4
+# 7    6
+# 8    4
+# 9    4
+# dtype: int64
+print(s.value_counts())
+# 4    5
+# 2    2
+# 6    2
+# 1    1
+# dtype: int64
+```
+
+### **스트링 메소드(String Methods)**
+Series에는 아래 코드 조각과 같이 배열의 각 요소에서 쉽게 작동할 수 있도록 하는 str 속성에 일련의 문자열 처리 방법이 장착되어 있다. str의 패턴 일치는 일반적으로 기본적으로 [정규식](https://docs.python.org/3/library/re.html)을 사용한다. (어떤 경우에는 항상 정규식을 사용). [벡터화된 문자열 메서드](https://pandas.pydata.org/docs/user_guide/text.html#text-string-methods)에서 자세히 알아보자 
+```python
+s = pd.Series(["A", "B", "C", "Aaba", "Baca", np.nan, "CABA", "dog", "cat"])
+
+print(s.str.lower())
+# 0       a
+# 1       b
+# 2       c
+# 3    aaba
+# 4    baca
+# 5     NaN
+# 6    caba
+# 7     dog
+# 8     cat
+# dtype: object
+
+```
+
+## **병합 (Merge)**
+
+### **연결 (Concat)** 
+pandas는 조인/병합 유형 작업의 경우 인덱스 및 관계 대수 기능에 대한 다양한 종류의 설정 논리를 사용하여 Series 및 DataFrame 개체를 쉽게 결합할 수 있는 다양한 기능을 제공한다. 
+
+[병합 섹션 참조](https://pandas.pydata.org/docs/user_guide/merging.html#merging)
+
+Concat()을 사용하여 pandas 객체 연결하기 
+```python
+df = pd.DataFrame(np.random.randn(10, 4))
+print(df)
+#           0         1         2         3
+# 0 -0.548702  1.467327 -1.015962 -0.483075
+# 1  1.637550 -1.217659 -0.291519 -1.745505
+# 2 -0.263952  0.991460 -0.919069  0.266046
+# 3 -0.709661  1.669052  1.037882 -1.705775
+# 4 -0.919854 -0.042379  1.247642 -0.009920
+# 5  0.290213  0.495767  0.362949  1.548106
+# 6 -1.131345 -0.089329  0.337863 -0.945867
+# 7 -0.932132  1.956030  0.017587 -0.016692
+# 8 -0.575247  0.254161 -1.143704  0.215897
+# 9  1.193555 -0.077118 -0.408530 -0.862495
+
+# break it into pieces 
+pieces = [df[:3], df[3:7], df[7:]]
+
+print(pd.concat(pieces))
+#           0         1         2         3
+# 0 -0.548702  1.467327 -1.015962 -0.483075
+# 1  1.637550 -1.217659 -0.291519 -1.745505
+# 2 -0.263952  0.991460 -0.919069  0.266046
+# 3 -0.709661  1.669052  1.037882 -1.705775
+# 4 -0.919854 -0.042379  1.247642 -0.009920
+# 5  0.290213  0.495767  0.362949  1.548106
+# 6 -1.131345 -0.089329  0.337863 -0.945867
+# 7 -0.932132  1.956030  0.017587 -0.016692
+# 8 -0.575247  0.254161 -1.143704  0.215897
+# 9  1.193555 -0.077118 -0.408530 -0.862495
+
+```
+> **노트**    
+>> [DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)에 열을 추가하는 것은 비교적 빠르다. 그러나 행을 추가하려면 복사본이 필요하고 비용이 많이 들 수 있다. 반복적으로 레코드를 추가하여 [DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)을 작성하는 대신 미리 작성된 레코드 목목을 [DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)생성자에게 전달하는 것이 좋다. 자세한 내용은 [데이터프레임에 추가](https://pandas.pydata.org/docs/user_guide/merging.html#merging-concatenation)를 참조
+
+
+### **조인(Join)**
+SQL 스타일이 병합됨. [데이터베이스 스타일 결합 섹션 참조](https://pandas.pydata.org/docs/user_guide/merging.html#merging-join)
+
+```python
+left = pd.DataFrame({"key": ["foo", "foo"], "lval": [1, 2]})
+right = pd.DataRame({"key": ["foo", "foo"], "rval": [4, 5]})
+
+print(left)
+#    key  lval
+# 0  foo     1
+# 1  foo     2
+
+print(right)
+#    key  rval
+# 0  foo     4
+# 1  foo     5
+
+print(pd.merge(left, right, on = "key"))
+#    key  lval  rval
+# 0  foo     1     4
+# 1  foo     1     5
+# 2  foo     2     4
+# 3  foo     2     5
+```
+
+제공할 수 있는 또 다른 예는 다음과 같다. 
+```python 
+left = pd.DataFrame({"key": ["foo", "bar"], "lval": [1, 2]})
+right = pd.DataFrame({"key": ["foo", "bar"], "rval": [4, 5]})
+
+print(left)
+#    key  lval
+# 0  foo     1
+# 1  bar     2
+
+print(right)
+#    key  rval
+# 0  foo     4
+# 1  bar     5
+
+print(pd.merge(left, right, on="key"))
+#    key  lval  rval
+# 0  foo     1     4
+# 1  bar     2     5
+```
+
+## **그룹화(Grouping)**
+"그룹화 기준"은 다음 단계 중 하나 이상을 포함하는 프로세스를 나타낸다. 
+> * 분할 (Splitting) : 일부 기준에 따라 데이터를 그룹으로 분할 
+> * 적용 (Applying) : 각 그룹에 독립적으로 기능 적용 
+> * 결합 (Combining) : 결과를 데이터 구조로 결합
+
+
+
+
 
