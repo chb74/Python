@@ -861,4 +861,177 @@ print(pd.pivot_table(df, values = "D", index = ["A", "B"], columns = ["C"]))
 
 
 ## **시계열 (Time Series)**
+pandas는 주파수 변환 (예: 2차 데이터를 5분 데이터로 변환) 중에 리샘플링 작업을 수행하기 위한 간단하고 강력하며 효율적인 기능을 가지고 있다. 이는 금융 애플리케이션에서 매우 일반적이지만 이에 국한되지 않습니다. [시계열 섹셕을 참조](https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries) 
+```python
+rng = pd.date_range("1/1/2012", periods = 100, freq = "S")
+ts = pd.Series(np.random.randint(0, 500, len(rng)), index = rng)
+ts.resample("5Min").sum()
+# 2012-01-01    24182
+# Freq: 5T, dtype: int64
+
+```
+
+시간대 표현: 
+```python 
+rng = pd.date_range("3/6/2012 00:00", periods = 5, freq = "D")
+ts = pd.Series(np.random.randn(len(rng)), rng)
+print(ts)
+# 2012-03-06    1.857704
+# 2012-03-07   -1.193545
+# 2012-03-08    0.677510
+# 2012-03-09   -0.153931
+# 2012-03-10    0.520091
+# Freq: D, dtype: float64
+
+ts_utc = ts.tz_localize("UTC")
+print(ts_utc)
+# 2012-03-06 00:00:00+00:00    1.857704
+# 2012-03-07 00:00:00+00:00   -1.193545
+# 2012-03-08 00:00:00+00:00    0.677510
+# 2012-03-09 00:00:00+00:00   -0.153931
+# 2012-03-10 00:00:00+00:00    0.520091
+# Freq: D, dtype: float64
+```
+다른 시간대로 변환 : 
+```python
+print(ts_utc.tz_convert("US/Eastern"))
+#  2012-03-05 19:00:00-05:00    1.857704
+# 2012-03-06 19:00:00-05:00   -1.193545
+# 2012-03-07 19:00:00-05:00    0.677510
+# 2012-03-08 19:00:00-05:00   -0.153931
+# 2012-03-09 19:00:00-05:00    0.520091
+# Freq: D, dtype: float64
+```
+
+시간 범위 표현 간 변환 
+```python 
+rng = pd.date_range('1/1/2012', periods = 5, freq = "M")
+ts = pd.Series(np.random.randn(len(rng)), index = rng)
+
+print(ts)
+# 2012-01-31   -1.475051
+# 2012-02-29    0.722570
+# 2012-03-31   -0.322646
+# 2012-04-30   -1.601631
+# 2012-05-31    0.778033
+# Freq: M, dtype: float64
+
+ps = ts.to_period()
+print(ps)
+# 2012-01   -1.475051
+# 2012-02    0.722570
+# 2012-03   -0.322646
+# 2012-04   -1.601631
+# 2012-05    0.778033
+# Freq: M, dtype: float64
+
+print(ps.to_timestamp())
+# 2012-01-01   -1.475051
+# 2012-02-01    0.722570
+# 2012-03-01   -0.322646
+# 2012-04-01   -1.601631
+# 2012-05-01    0.778033
+# Freq: MS, dtype: float64
+```
+
+마침표와 타임스탬프 사이를 변환하면 몇 가지 편리한 산술함수를 사용할 수 있다. 다음 예에서는 연도가 11월로 끝나는 분기별 빈도흘 분기말 다음 달 말의 오전 9시로 변환한다. 
+```python
+prng = pd.period_range("1990Q1", "2000Q4", freq = "Q-NOV")
+
+ts = pd.Series(np.random.randn(len(prng)), prng)
+ts.index = (prng.asfreq("M", "e") + 1).asfreq("H", "s") + 9
+print(ts.head())
+# 1990-03-01 09:00   -0.289342
+# 1990-06-01 09:00    0.233141
+# 1990-09-01 09:00   -0.223540
+# 1990-12-01 09:00    0.542054
+# 1991-03-01 09:00   -0.688585
+# Freq: H, dtype: float64
+```
+
+
+## **카테고리 (Categoricals)**
+pandas는 [DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)에 범주형 데이터를 포함할 수 있다. 전체 문서는 [범주별 소개](https://pandas.pydata.org/docs/user_guide/categorical.html#categorical) 및 [API 문서](https://pandas.pydata.org/docs/reference/arrays.html#api-arrays-categorical)를 참조.
+
+```python
+df = pd.DataFrame(
+    {"id": [1, 2, 3, 4, 5, 6], "raw_grade": ["a", "b", "c", "a", "a", "e"]}
+)
+
+# 원시 성적을 범주형 데이터 유형으로 변환한다. 
+df["grade"] = df["raw_grade"].astype("category")
+print(df["grade"])
+# 0    a
+# 1    b
+# 2    b
+# 3    a
+# 4    a
+# 5    e
+# Name: grade, dtype: category
+# Categories (3, object): ['a', 'b', 'e']
+```
+
+범주 이름을 더 의미 있는 이름으로 바꾼다. [Series.cat.categories()](https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.categories.html#pandas.Series.cat.categories)
+
+```python
+df["grade"].cat.categories = ["very good", "good", "very bad"]
+```
+범주를 재정렬하고 동시에 누락된 범주를 추가한다. ([Series.cat()](https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.html#pandas.Series.cat)아래의 메서드는 기본적으로 새 [시리즈(Series)](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)를 반환한다. )
+
+```python 
+df["grade"] = df["grade"].cat.set_categories(
+    ["very bad", "bad", "medium", "good", "very good"]
+)
+
+print(df["grade"])
+# 0    very good
+# 1         good
+# 2         good
+# 3    very good
+# 4    very good
+# 5     very bad
+# Name: grade, dtype: category
+# Categories (5, object): ['very bad', 'bad', 'medium', 'good', 'very good']
+```
+
+정렬은 어휘 순서가 아니라 범주의 순서에 따라서 이루어짐. 
+```python
+print(df.sort_values(by="grade"))
+#    id raw_grade      grade
+# 5   6         e   very bad
+# 1   2         b       good
+# 2   3         b       good
+# 0   1         a  very good
+# 3   4         a  very good
+# 4   5         a  very good
+```
+범주형 열을 기준으로 그룹화하면 빈 범주도 표시된다. 
+```python
+print(df.groupby("grade").size())
+# grade
+# very bad     1
+# bad          0
+# medium       0
+# good         2
+# very good    3
+# dtype: int64
+```
+
+## **플로팅 (Plotting)**
+도큐먼트 참조 [Plotting](https://pandas.pydata.org/docs/user_guide/visualization.html#visualization)
+
+matplotlib API를 참조하기 위해 표준 규칙을 사용한다. 
+```python
+import matplotlib.pyplot as plt 
+plt.close("all")
+```
+
+close() 메서드는 Figure 창을 닫는데 사용한다. 
+```python 
+ts = pd.Series(np.random.randn(1000), index = pd.date_range("1/1/2000", periods = 1000))
+ts = ts.cumsum()
+ts.plot();
+```
+결과는 ![Plotting Image](plotting.png)
+
 
