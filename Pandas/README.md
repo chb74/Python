@@ -185,14 +185,9 @@ print(df.sort_values(by="B"))
 # 2013-01-05 -0.424972  0.567020  0.276232 -1.087401
 ```
 
-## **선택 (Selection) **
----
+## <strong>선택 (Selection) </strong>
 > **참고**
-> 선택 및 설정을 위한 표준 Python/Numpy 표현식은 직관적이고 대화식 작업에 유용하지만 프로덕션 코드의 경우 최적화된 pandas 데이터 액세스 방법인 .at, .iat, .loc 및 iloc을 권장한다. 
-
----
-
-
+    - 선택 및 설정을 위한 표준 Python/Numpy 표현식은 직관적이고 대화식 작업에 유용하지만 프로덕션 코드의 경우 최적화된 pandas 데이터 액세스 방법인 .at, .iat, .loc 및 iloc을 권장한다. 
 
 
 
