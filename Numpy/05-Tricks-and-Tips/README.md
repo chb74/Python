@@ -67,4 +67,7 @@ plt.hist(v, bins = 50, density = True)                      # matplotlib version
 plt.plot(.5 * (bins[1:] + bins[:-1]), n)
 ```
 
-![Histogram Image](histogram.png)
+결과는 : ![Histogram Image](histogram.png)
+
+Matlotlib 3.4 버전 이상에서는 plt.stairs(n, bins) 도 사용할 수 있다. 
+
