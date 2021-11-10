@@ -532,7 +532,7 @@ print(df.sub(s, axis = "index"))
 # 2013-01-06       NaN       NaN       NaN  NaN  NaN
 ```
 
-### <strong>Apply</strong>
+### **적용하기 (Apply) **
 데이터에 함수 적용하기 
 ```python
 print(df.apply(np.cumsum))
