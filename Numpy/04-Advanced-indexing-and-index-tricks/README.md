@@ -217,8 +217,122 @@ def mandelbrot(h, w, maxit = 30, r = 2):
 
 plt.imshow(mandelbrot(400, 400))
 ```
-Result : 
+결과는 : 
 ![image](mandelbrot.png)
+
+부울로 인덱싱하는 두 번재 방법은 정수 인덱싱과 더 유사하다. 배열의 각 차원에 대해 원하는 슬라이스를 선택하는 1D 부울 배열을 제공한다. 
+```python
+a = np.arange(12).reshape(3, 4)
+b1 = np.array([False, True, True])              # first dim selection 
+b2 = np.array([True, False, True, False])       # second dim selection 
+
+print(a[b1, :])                                 # selecting rows 
+# array([[ 4,  5,  6,  7],
+#       [ 8,  9, 10, 11]])
+
+print(a[b1])                                    # same thing 
+# array([[ 4,  5,  6,  7],
+#       [ 8,  9, 10, 11]])
+
+print(a[:, b2])                                 # selecting columns 
+# array([[ 0,  2],
+#       [ 4,  6],
+#       [ 8, 10]])
+
+print(a[b1, b2])                                # a weird thing to do 
+# array([ 4, 10])
+```
+1d 부울 배열의 길이는 슬라이스하려는 차원의 길이와 일치해야 한다. 앞의 예에서 b1의 길이는 3(a의 행 수) 이고 b2(길이 4)는 a의 두 번째 축(열)을 인덱싱하는데 적합합니다. 
+
+## <strong> ix() 함수 </strong>
+ix_ 함수는 각 n-uplet에 대한 결과를 얻기 위해 서로 다른 벡터를 결합하는데 사용할 수 있다. 예를 들어, 각 벡터 a, b및 c에서 가져온 모든 삼중항에 대한 모든 a+b*c를 계산하려는 경우: 
+```python
+a = np.array([2, 3, 4, 5])
+b = np.array([8, 5, 4])
+c = np.array([5, 4, 6, 8, 3])
+
+ax, bx, cx = np.ix_(a, b, c)
+
+print(ax)
+# array([[[2]],
+#
+#       [[3]],
+#
+#       [[4]],
+#
+#       [[5]]])
+
+print(bx)
+# array([[[8],
+#        [5],
+#        [4]]])
+
+print(cx)
+# array([[[5, 4, 6, 8, 3]]])
+
+print(ax.shape, bx.shape, cx.shape)
+# ((4, 1, 1), (1, 3, 1), (1, 1, 5))
+
+result = ax + bx * cx
+print(result)
+# array([[[42, 34, 50, 66, 26],
+#        [27, 22, 32, 42, 17],
+#        [22, 18, 26, 34, 14]],
+#
+#       [[43, 35, 51, 67, 27],
+#        [28, 23, 33, 43, 18],
+#        [23, 19, 27, 35, 15]],
+#
+#       [[44, 36, 52, 68, 28],
+#        [29, 24, 34, 44, 19],
+#        [24, 20, 28, 36, 16]],
+#
+#       [[45, 37, 53, 69, 29],
+#        [30, 25, 35, 45, 20],
+#        [25, 21, 29, 37, 17]]])
+
+print(result[3, 2, 4])
+# 17 
+
+print(a[3] + b[2] * c[4])
+# 17
+```
+다음과 같이 감소를 구현할 수도 있다. 
+
+```python
+def ufunc_reduce(ufct, *vectors):
+    vs = np.ix_(*vectors)
+    r = ufct.identity
+    for v in vs:
+        r = ufct(r, v)
+    return r
+```
+다음과 같이 사용하십시오. 
+```python 
+print(ufunc_reduce(np.add, a, b, c))
+# array([[[15, 14, 16, 18, 13],
+#        [12, 11, 13, 15, 10],
+#        [11, 10, 12, 14,  9]],
+#
+#       [[16, 15, 17, 19, 14],
+#        [13, 12, 14, 16, 11],
+#        [12, 11, 13, 15, 10]],
+#
+#       [[17, 16, 18, 20, 15],
+#        [14, 13, 15, 17, 12],
+#        [13, 12, 14, 16, 11]],
+#
+#       [[18, 17, 19, 21, 16],
+#        [15, 14, 16, 18, 13],
+#        [14, 13, 15, 17, 12]]])
+```
+일반 ufunc.reduce와 비교하여 이 버전의 reduce의 장점은 출력 크기에 벡터 수를 곱한 인수 배열을 생성하는 것을 피하기 위해 브로드캐스팅 규칙을 사용한다는 것이다. 
+
+## <strong> 문자열로 인덱싱하기 </strong>
+
+링크 참조 [Structured Arrays](https://numpy.org/doc/stable/user/basics.rec.html#structured-arrays)
+
+
 
 
 
