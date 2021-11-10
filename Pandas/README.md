@@ -484,7 +484,7 @@ print(pd.isna(df1))
 ## <strong> 운영?? (Operations) </strong>
 [Binary Ops의 기본 섹션](https://pandas.pydata.org/docs/user_guide/basics.html#basics-binop)
 
-**Stats**
+### **Stats**
 일반적으로 작업은 누락된 데이터를 제외한다. 
 
 기술 통계 수행 
@@ -532,7 +532,7 @@ print(df.sub(s, axis = "index"))
 # 2013-01-06       NaN       NaN       NaN  NaN  NaN
 ```
 
-<strong>Apply</strong>
+### <strong>Apply</strong>
 데이터에 함수 적용하기 
 ```python
 print(df.apply(np.cumsum))
