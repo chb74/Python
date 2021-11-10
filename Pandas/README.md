@@ -693,7 +693,172 @@ print(pd.merge(left, right, on="key"))
 > * 적용 (Applying) : 각 그룹에 독립적으로 기능 적용 
 > * 결합 (Combining) : 결과를 데이터 구조로 결합
 
+[그룹 섹션 확인하기](https://pandas.pydata.org/docs/user_guide/groupby.html#groupby)
+
+```python
+df = pd.DataFrame(
+    {
+        "A": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "foo" ],
+        "B": ["one", "one", "two", "three", "two", "two", "one", "three"],
+        "C": np.random.randn(8),
+        "D": np.random.randn(8),
+    }
+)
+
+print(df)
+#      A      B         C         D
+# 0  foo    one  1.346061 -1.577585
+# 1  bar    one  1.511763  0.396823
+# 2  foo    two  1.627081 -0.105381
+# 3  bar  three -0.990582 -0.532532
+# 4  foo    two -0.441652  1.453749
+# 5  bar    two  1.211526  1.208843
+# 6  foo    one  0.268520 -0.080952
+# 7  foo  three  0.024580 -0.264610
+```
+
+그룹화한 다음 결과 그룹에 sum() 함수를 적용한다. 
+
+```python
+print(df.groupby("A").sum())
+#              C         D
+# A                      
+# bar  1.732707  1.073134
+# foo  2.824590 -0.574779
+```
+여러 열로 그룹화하면 계층적 인덱스가 형성되고 다시 sum() 함수를 적용할 수 있다. 
+
+```python
+print(groupby(["A", "B"]).sum())
+#                   C         D
+# A   B                        
+# bar one    1.511763  0.396823
+#    three -0.990582 -0.532532
+#    two    1.211526  1.208843
+#foo one    1.614581 -1.658537
+#    three  0.024580 -0.264610
+#    two    1.185429  1.348368
+```
+
+## **재형성 (Reshaping)**
+[계층적 인덱싱](https://pandas.pydata.org/docs/user_guide/advanced.html#advanced-hierarchical) 및 [재구성](https://pandas.pydata.org/docs/user_guide/reshaping.html#reshaping-stacking)에 대한 섹션을 참조 
+
+### **스택 (Stack)** 
+
+```python 
+tuples = list(
+    zip(
+        *[
+            ["bar", "bar", "baz", "baz", "foo", "foo", "qux", "qux"],
+            ["one", "two", "one", "two", "one", "two", "one", "two"],
+        ]
+    )
+)
+index = pd.MultiIndex.from_tuples(tuples, names = ["first", "second"])
+
+df = pd.DataFrame(np.random.randn(8, 2), index = index, column = ["A", "B"])
+
+df2 = df[:4]
+
+print(df2)
+#                       A         B
+# first second                    
+# bar   one    -0.727965 -0.589346
+#       two     0.339969 -0.693205
+# baz   one    -0.339355  0.593616
+#      two     0.884345  1.591431
+```
+
+stack() 메서드는 DataFrame의 열에 있는 수준을 "압축" 합니다. 
+```python 
+stacked = df2.stack() 
+
+print(stacked)
+# first  second   
+#bar    one     A   -0.727965
+#               B   -0.589346
+#       two     A    0.339969
+#               B   -0.693205
+#baz    one     A   -0.339355
+#               B    0.593616
+#       two     A    0.884345
+#               B    1.591431
+#dtype: float64
+```
+스택된 DataFrame 또는 Series(MultiIndex를 인덱스로 사용)에서 stack()의 역연산은 기본적으로 마지막 레벨의 스택을 해제하는 unstack() 입니다. 
+
+```pyhon 
+print(stacked.unstack())
+#                      A         B
+# first second                    
+# bar   one    -0.727965 -0.589346
+#       two     0.339969 -0.693205
+# baz   one    -0.339355  0.593616
+#       two     0.884345  1.591431
+
+print(stacked.unstack(1))
+# second        one       two
+# first                      
+# bar   A -0.727965  0.339969
+#      B -0.589346 -0.693205
+# baz   A -0.339355  0.884345
+#       B  0.593616  1.591431
+
+print(stacked.unstack(0))
+# first          bar       baz
+# second                      
+# one    A -0.727965 -0.339355
+#       B -0.589346  0.593616
+# two    A  0.339969  0.884345
+#        B -0.693205  1.591431
+```
+
+### **피봇 테이블(Pivot Tables)**
+[Pivot Tables](https://pandas.pydata.org/docs/user_guide/reshaping.html#reshaping-pivot)
+
+```python
+df = pd.DataFrame(
+    {
+        "A": ["one", "one", "two", "three"] * 3, 
+        "B": ["A", "B", "C"] * 4, 
+        "C": ["foo", "foo", "foo", "bar", "bar", "bar"] * 2,
+        "D": np.random.randn(12),
+        "E": np.random.randn(12),
+    }
+)
+
+print(df)
+#          A  B    C         D         E
+#0     one  A  foo -1.202872  0.047609
+#1     one  B  foo -1.814470 -0.136473
+#2     two  C  foo  1.018601 -0.561757
+#3   three  A  bar -0.595447 -1.623033
+#4     one  B  bar  1.395433  0.029399
+#5     one  C  bar -0.392670 -0.542108
+#6     two  A  foo  0.007207  0.282696
+#7   three  B  foo  1.928123 -0.087302
+#8     one  C  foo -0.055224 -1.575170
+#9     one  A  bar  2.395985  1.771208
+#10    two  B  bar  1.552825  0.816482
+#11  three  C  bar  0.166599  1.100230
+```
+
+이 데이터에서 매우 쉽게 피벗 테이블을 생성할 수 있다. 
+```python 
+print(pd.pivot_table(df, values = "D", index = ["A", "B"], columns = ["C"]))
+# C             bar       foo
+# A     B                    
+#one   A  2.395985 -1.202872
+#      B  1.395433 -1.814470
+#      C -0.392670 -0.055224
+#three A -0.595447       NaN
+#      B       NaN  1.928123
+#      C  0.166599       NaN
+#two   A       NaN  0.007207
+#      B  1.552825       NaN
+#      C       NaN  1.018601
+```
 
 
-
+## **시계열 (Time Series)**
 
