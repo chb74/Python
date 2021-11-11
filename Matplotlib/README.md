@@ -256,3 +256,13 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 렌더링 엔진의 경우 벡터 또는 래스터 렌더러를 구별 할 수 도 있다. 벡터 그래픽 언어는 "이 지점에서 이 지점까지 선 그리기" 와 같은 그리기 명령을 실행하므로 스케일이 없으며 레스터 백엔드는 정확도가 DPI 설정에 따라 달라지는 선의 픽셀 표현을 생성한다. 
 
 다음은 matplotlib 렌더러에 대한 요약이다. (각각에 대해 동일한 백엔드가 있다. 이들은 파일에 쓸수 있는 비대화형 백엔드이다.)
+
+|렌더러|파일타입|설명|
+|------|-------|----|
+|AGG   |png    | 	raster graphics -- high quality images using the Anti-Grain Geometry engine|
+|PDF   |pdf    | 	vector graphics -- Portable Document Format |
+|PS    | ps, eps | vector graphics -- Postscript output|
+|SVG   | svg   |  	vector graphics -- Scalable Vector Graphics|
+|PGF   | pgf, pdf | vector graphics -- using the pgf package|
+|Cairo | png, ps, pdf, svg | raster or vector graphics -- using the Cairo library|
+
