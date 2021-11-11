@@ -205,9 +205,9 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 #### 백엔드 선택하기 
 백엔드를 구성하는 세가지 방법이 있다. 
 <ol>
- <li> matplotlibrc 파일의 rcParams["backend"] 매개변수 
- <li> MPLBACKEND 환경 변수
- <li> 함수 matplotlib.use()
+ <li> matplotlibrc 파일의 [rcParams["backend"]](https://matplotlib.org/stable/tutorials/introductory/customizing.html?highlight=backend#a-sample-matplotlibrc-file) 매개변수 
+ <li> [MPLBACKEND](https://matplotlib.org/stable/faq/environment_variables_faq.html#envvar-MPLBACKEND) 환경 변수
+ <li> 함수 [matplotlib.use()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.use)
 </ol>
  
  더 자세한 설명은 아래에... 
@@ -215,3 +215,11 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
  이러한 구성이 여러 개 있는 경우 목록의 마지막 구성이 우선한다. 예를 들어 matplotlib.use()를 호출하면 matplotlibrc의 설정이 무시된다. 
 
  백엔드가 명시적으로 설정되지 않는 경우 matplotlib는 시스템에서 사용 가능한 항목과 GUI 이벤트 루프가 이미 실행 중인지 여부에 따라 사용 가능한 백엔드를 자동으로 감지한다. 리눅스에서 환경 변수 DISPLAY가 설정되지 않은 경우 "이벤트 루프"는 "헤드리스"로 식별되어 비대화형 백엔드(agg)로 폴백된다. 다른 모든 경우에는 대화형 백엔드가 선호된다. (일반적으로 최소한 tkagg를 사용할 수 있다.)
+
+구성 방법에 대한 자세한 설명은 다음과 같습니다. 
+
+<ol>
+    <li> matplotlibrc 파일에서 rcParams["backend"] 설정 : 
+    ```bash 
+    backend : qt5agg            #  안티그레인(agg) 렌더링과 함께 pyqt5 사용 
+    ```
