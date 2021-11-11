@@ -222,3 +222,14 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
    backend : qt5agg            #  안티그레인(agg) 렌더링과 함께 pyqt5 사용 
    ```
 [스타일 시트 및 rcParam으로 matplotlib](https://matplotlib.org/stable/tutorials/introductory/customizing.html) 참조
+
+   * MPLBACKEND 환경 변수 설정 : 
+   현재 쉘 또는 단일 스크립트에 대해 환경 변수를 설정 할 수 있다. 
+
+   유닉스에서는 
+   ```bash 
+   export MPLBACKEND=qt5agg
+   python simpole_plotl.py 
+
+   MPLBACKEND=qt5agg python simple_plot.py
+   ```
