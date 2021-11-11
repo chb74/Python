@@ -204,11 +204,10 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 
 #### 백엔드 선택하기 
 백엔드를 구성하는 세가지 방법이 있다. 
-<ol>
- <li> matplotlibrc 파일의 [rcParams["backend"]](https://matplotlib.org/stable/tutorials/introductory/customizing.html?highlight=backend#a-sample-matplotlibrc-file) 매개변수 
- <li> [MPLBACKEND](https://matplotlib.org/stable/faq/environment_variables_faq.html#envvar-MPLBACKEND) 환경 변수
- <li> 함수 [matplotlib.use()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.use)
-</ol>
+
+matplotlibrc 파일의 [rcParams["backend"]](https://matplotlib.org/stable/tutorials/introductory/customizing.html?highlight=backend#a-sample-matplotlibrc-file) 매개변수 
+ [MPLBACKEND](https://matplotlib.org/stable/faq/environment_variables_faq.html#envvar-MPLBACKEND) 환경 변수
+ 함수 [matplotlib.use()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.use)
  
  더 자세한 설명은 아래에... 
 
@@ -220,6 +219,7 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 
 <ol>
     <li> matplotlibrc 파일에서 rcParams["backend"] 설정 : 
+
     ```bash 
     backend : qt5agg            #  안티그레인(agg) 렌더링과 함께 pyqt5 사용 
     ```
