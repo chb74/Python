@@ -219,7 +219,6 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 
 <ol>
     <li> matplotlibrc 파일에서 rcParams["backend"] 설정 : 
-
     ```bash 
     backend : qt5agg            #  안티그레인(agg) 렌더링과 함께 pyqt5 사용 
     ```
