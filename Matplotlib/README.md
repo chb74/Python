@@ -266,3 +266,36 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 |PGF   | pgf, pdf | vector graphics -- using the pgf package|
 |Cairo | png, ps, pdf, svg | raster or vector graphics -- using the Cairo library|
 
+비대화형 백엔드를 사용하여 플롯을 저장하려면 matplotlib.pyplot.savefig('filename') 메서드를 사용하라. 
+
+다음은 지원되는 사용자 인터페이스 및 렌더러 조합이다. 이들은 화면에 표시할 수 있고 위의 ㅍ에서 적절한 렌더러를 사용하여 파일에 쓸수 있는 대화형 백엔드이다. 
+
+|백엔드|설명|
+|------|----|
+|Qt5Agg|Qt5 캔버스에서 Agg 렌더링(PyQt5 필요). 이 백엔드는 %matplotlib qt5를 사용하여 IPython에서 활성화 할 수 있다. |
+|ipympl|주피터 위젯에 포함된 Agg 렌더링. (ipympl 필요). 이 백엔드는 %matplotlib ipympl이 있는 주피터 노트북에서 활성화 할 수 있다.|
+|GTK3Agg|GTK 3.x 캔버스에 대한 Agg 렌더링 (PyGObject 및 pycairo 또는 cairocffi 필요). 이 백엔드는 %matplotlib gtk3를 사용하여 IPython에서 활성화할 수 있습니다. |
+|macosx|OSX에서 Cocoa 캔버스로의 Agg 렌더링. 이 백엔드는 %matplotlib osx를 사용하여 IPython에서 활성화 할 수 있다.|
+|TkAgg|Tk 캔버스에 대한 Agg 렌더링(TkInter 필요). 이 백엔드는 %matplotlib tk를 사용하여 IPython에서 활성화할 수 있다. |
+|nbAgg|주피터 클래식 노트북에 대화형 피규어를 포함시키십시오. 이 백엔드는 %matplotlib 노트북을 통해 주피터 노트북에서 활성화 할 수 있다. |
+|WebAgg| show()에서 대화형 그림으로 토네이도 서버를 시작한다.|
+|GTK3Cairo|GKT 3.x 캔버스로 카이로 렌더링(PyGObject 및 pycairo 또는 cairocffi 필요)|
+|Qt4Agg| Qt4캔버스에 대한 Agg 렌더링 (PyQt4 또는 pyside필요). 이 백엔드는 %matplotlib qt4 를 사용하여 IPython에서 활성화 할수 있다. |
+|wxAgg| wxWidgets 캔버스에 대한 Agg 렌더링(wxPython 4 필요). 이 백엔드는 %matplotlib wx를 사용하여 IPython에서 활성화 할수 있다. |
+
+> 노트 
+>> 내장 백엔드의 이름은 대소문자를 구분하지 않습니다. 예를 들어 'Qt5Agg' 및 'qt5agg'는 동일
+
+**ipympl**
+주피터 위젯 생태계는 matplotlib에서 직접 지원하기에는 너무 빠르게 움직인다. ipympl을 설치하려면 
+```bash 
+pip install ipympl 
+jupyter nbextension enable --py --sys-prefix ipympl 
+```
+
+or 
+```bash 
+conda install ipympl -c conda-forge
+```
+링크를 참조. [jupyter-matplotlib](https://github.com/matplotlib/jupyter-matplotlib)
+
