@@ -409,3 +409,50 @@ matplotlib 는 현재 기본적으로 1/9의 보수적인 단순화 임계값을
 > **노트**
 >> 버전 2.1에서 라인 세그먼트 단순화 방법과 관련된 변경 사항이 적용되었다. 2.1 이전에는 이러한 매개변수에 의해 렌더링 시간이 계속 향상되지만 일부 유형의 데이터에 대한 렌더링 시간은 버전 2.1 이상에서 크게 향상된다. 
 
+**마커 단순화 (Marker simplification)**<br>
+마커는 선분보다 덜 강력하지만 단순화할 수도 있다. 마커 단순화는 (markevery 속성을 통해) Line2D 개체에만 사용할 수 있다. matplotlib.pyplot.plot() 및 matplotlib.axes.Axes.plot()과 같이 Line2D 구성 매개변수가 전달되는 곳마다 markevery 매개변수를 사용할 수 있다. 
+```python
+plt.plot(x, y, markevery = 10)
+```
+
+**줄을 더 작은 청크로 분할**<br>
+Agg 백엔드를 사용하는 경우(백엔드란 ? 참조) rcParams["agg.path.chunksize"](기본값: 0)을 사용할 수 있습니다. 이를 통해 청크 크기와 그 보다 큰 정점은 여러 줄로 분할되며 각 줄에는 agg.path.chunksize 이상의 정점이 없다. (agg.path.chunksize)가 0이 아닌 경우 청크가 발생하지 않습니다.) 어떤 종류의 데이터의 경우 라인을 적당한 크기로 청크하면 렌더링 시간을 크게 줄일 수 있다. 
+
+다음 스크립트는 먼저 청크 크기 제한 없이 데이터를 표시한 다음 청크 크기가 10,000 인 동일한 데이터를 표시한다. 차이는 수치가 클 때 가장 잘 알수 있다. GUI를 최대화한 다음 상호 작용해 보자. 
+```python
+import numpy as np
+import matplotli.pyplot as plt 
+import matplotlib as mpl 
+
+mpl.rcParams['path.simplify_threshold'] = 1.0 
+
+# Setup and create the data to plot 
+y = np.random.rand(100000)
+y[50000:] *= 2
+y[np.geomsapce(10, 50000, 400).astype(int)] = 1
+mpl.rcParams['path.simplify'] = True
+
+mpl.rcParams['agg.path.chunksize'] = 0
+plt.plot(y)
+plt.show()
+
+mpl.rcParams['agg.path.chunksize'] = 10000
+plt.plot()
+plt.show()
+
+```
+
+**전설 ?(Legend)**<br>
+좌표축의 기본 범례 동작은 가장 적은 데이터 포인트를 포함하는 위치를 찾으려고 사도합니다.(loc='best'). 데이터 포인트가 많은 경우 매우 비용이 많이 드는 계산이 될수 있습니다.  이 경우 특정 위치를 제공할 수 있습니다. 
+
+**빠른 스타일 사용하기**<br>
+빠른 스타일을 사용하면 단순화 및 청크 매개변수를 합리적인 설정으로 자동 설정하여 대량의 데이터를 신속하게 플로팅 할 수 있다. 다음은 실행하여 간단히 사용할 수 있다. 
+```python
+import matplotlib.style as mplstyle 
+mplstyle.use('fast')
+```
+매우 가벼우므로 다른 스타일과 잘 어울립니다. 다른 스타일이 설정을 덮어쓰지 않도록 빠른 스타일이 마지막에 적용되었는지 확인 하십시오. 
+
+```python
+mplstyle.use(['dark_background', 'ggplot', 'fast'])
+```
