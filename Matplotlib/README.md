@@ -42,6 +42,7 @@ import matplolib.pyplot as plt
 ```
 
 ### 간단한 예제 
+<hr style="border:2px solid gray"> </hr>
 matplotlib는 그림(예: 창, 주피터 위젯 등)에 데이터를 그래피로 표시하며, 각 그림에는 하나 이상의 축이 포함될 수 있다. (즉, 점이 xy 좌표 또는 극좌표의 세타-r로 지정될 수 있는 영역). 플롯 또는 3D 플롯의 xyz등). 축이 있는 그림을 만드는 가장 간단한 방법은 `pyplot.subplots`를 사용하는 것이다. 그런 다음 Axes.plot를 사용하여 축에 일부 데이터를 그릴 수 있다. 
 
 ```python
@@ -66,6 +67,7 @@ plt.plot([1 ,2 ,3, 4], [1, 4, 2, 3])        # Matplotlib plot.
 결과는 위와 같음 
 
 ### 그림의 일부 
+<hr style="border:2px solid gray"> </hr>
 matplotlib 그림의 구성 요소를 자세히 살펴보자. 
 
 ![Matplotlib](matplotlib.png)
@@ -88,6 +90,7 @@ Figure와 함께 좌표축을 만드는 것이 편리하지만 나중에 좌표�
 기본적으로 Figure에서 볼 수 있는 모든 것은 아티스트이다. (Figure, Axes 및 Axis 개체 포함). 여기에는 Text 개체, Line2D개체, 컬렉션 개체, Patch 개체 등이 포함된다. 그림이 렌더링되면 모든 아티스트가 캔버스에 그려진다. 대부분의 아티스트는 축에 묶여 있다. 이러한 아티스트는 여러축에서 공유하거나 한 축에서 다른 축으로 이동할 수 없다. 
 
 ### 플로팅 함수에 대한 입력 유형
+<hr style="border:2px solid gray"> </hr>
 모든 플로팅 함수는 numpy.array 또는 numpy.ma.masked_array를 입력으로 예상한다. pandas 데이터 개체 및 numpy.matrix와 같은 배열과 유사한 클래스는 의도한 대로 작동하거나 작동하지 않을 수 있다. 플로팅하기 전에 이를 numpy.array객체로 변환하는 것이 가장 좋습니다. 
 
 예를 들어 pandas.DataFrame을 변환하려면, 
@@ -104,6 +107,7 @@ b_asarray = np.asarray(b)
 ```
 
 ### 객체 지향 인터페이스와 pyplot 인터페이스
+<hr style="border:2px solid gray"> </hr>
 위에서 언급했듯이 Matplotlib를 사용하는 기본적으로 두가지 방법이 있다. 
 * 명시적으로 그림과 축을 만들고 이에 대한 메서드를 호출한다. (객체지향 스타일: OO방법 -> OO : Object Oriented)
 * pyplot을 사용하여 그림과 축을 자동으로 생성 및 관리하고 플리팅에 pyplot 기능을 사용하는 방법
@@ -197,7 +201,7 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 이러한 간단한 예의 경우 이 스타일은 과도하게 보이지만 그래프가 약간 더 복잡해지면 효과가 있다. 
 
 ### 백엔드 (Backends)
-
+<hr style="border:2px solid gray"> </hr>
 #### 백엔드가 뭐냐 ?
 웹사이트와 메일링 리스트에 있는 많은 문서는 "백엔드"를 언급하며 많은 신규 사용자가 이 용어를 혼동한다. matplotlib는 다양한 사용 사례와 출력 형식을 대상으로 한다. 어떤 사람들은 파이썬 쉘에서 대화식으로 matplotlib를 사용하고 명령을 입력할 때 플로팅 창이 팝업된다. 어떤 사람들은 주피터 노트북을 실행하고 빠른 데이터 분석을 위해 인라인 플롯을 그린다. 다른 사람들은 matplotlib 를 PyQt 또는 PyGObject와 같은 그래픽 사용자 인터페이스에 포함하여 풍부한 응용 프로그램을 빌드한다. 어떤 사람들은 배치 스크립트에서 matplotlib를 사용하여 수치 시뮬레이션에서 포스트스크립트 이미지를 생성하고 다른 사람들은 웹 애플리케이션 서버를 실행하여 그래프를 동적으로 제공한다. 
 
@@ -216,4 +220,3 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
  이러한 구성이 여러 개 있는 경우 목록의 마지막 구성이 우선한다. 예를 들어 matplotlib.use()를 호출하면 matplotlibrc의 설정이 무시된다. 
 
  백엔드가 명시적으로 설정되지 않는 경우 matplotlib는 시스템에서 사용 가능한 항목과 GUI 이벤트 루프가 이미 실행 중인지 여부에 따라 사용 가능한 백엔드를 자동으로 감지한다. 리눅스에서 환경 변수 DISPLAY가 설정되지 않은 경우 "이벤트 루프"는 "헤드리스"로 식별되어 비대화형 백엔드(agg)로 폴백된다. 다른 모든 경우에는 대화형 백엔드가 선호된다. (일반적으로 최소한 tkagg를 사용할 수 있다.)
- 
