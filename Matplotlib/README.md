@@ -301,5 +301,111 @@ conda install ipympl -c conda-forge
 
 
 **PyQt4 또는 PySide를 어떻게 선택하는가 ?**<br>
-<strong>PyQt4 또는 PySide를 어떻게 선택하는가 ?**<strong><br>
+QT_API 환경 변수는 각각 PyQt4 또는 PySide를 사용하도록 pyqt 또는 pyside로 설정할 수 있다. 사용할 바인딩의 기본값은 PyQt4이므로 matplotlib는 먼저 가져오기를 시도합니다. 가져오기가 실패하면 PySide 가져오기를 시도합니다. 
+
+**내장돼지 않은 백엔드 사용**<br>
+더 일반적으로 위의 방법 중 하나를 사용하여 가져올 수 있는 백엔드를 선택할 수 있다. name.of.the.backend 가 백엔드를 포함하는 모듈인 경우, module://name.of.the.backend를 백엔드 이름으로 사용하십시오. matplotlib.use('module://name.of.the.backend').
+
+
+### 대화형 모드란 ?
+대화형 백엔드를 사용하면 ([백엔드란 무엇입니까 ?](https://matplotlib.org/stable/tutorials/introductory/usage.html#what-is-a-backend) 참조) 화면에 플로팅을 허용하지만 그 자체로 요구하거나 보장하지는 않는다. 화면에 플로팅이 발생하는지 여부와 화면에 플롯이 그려진 후 스크립트 또는 쉘 세션이 계속되는지 여부는 호출되는 함수와 메서드, matplotlib가 "대화식 모드"인지 여부를 결정하는 상태 변수에 따라 다릅니다. ".기본 부울 값은 matplotlibrc 파일에 의해 설정되며 다른 구성 매개변수처럼 사용자 정의할 수 있습니다. ([스타일 시트 및 rcParam으로 matplotlib 사용자 정의](https://matplotlib.org/stable/tutorials/introductory/customizing.html) 참조). [matplotlib.interactive()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.interactive)를 통해 설정할 수도 있고 [matplotlib.is_interactive()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.is_interactive)를 통해 값을 쿼리할 수도 있다. 스크립트에서든 쉘에서든 플로팅 명령 스트림 중간에 대화형 모드를 켜고 끄는 것은 거의 필요하지 않으며 잠재적으로 혼란스러울 수 있다. 다음에서는 모든 플로팅이 대화형 모드를 켜거나 끌 때 수행된다고 가정한다. 
+
+> **노트**
+>> 상호 작용, 특히 [show()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show)의 역할과 동작과 관련된 주요 변경사항은 matplotlib 버전 1.0으로 전환하면서 이루어졌으며 버그는 1.0.1에서 수정되었습니다. 여기에서는 macosx를 부분적으로 제외하고 기본 대화형 백엔드에 대한 버전 1.0.1 동작을 설명한다. 
+
+대화형 모드는 [matplotlib.pyplot.ion()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ion.html#matplotlib.pyplot.ion)을 통해 켜고 [matplotlib.pyplot.ioff()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ioff.html#matplotlib.pyplot.ioff) 를 통해 끌수도 있다. 
+
+> **노트**
+>> 대화형 모드는 ipython 및 일반 python 쉘의 적절한 백엔드에서 작동하지만 IDKE IDE에서는 작동하지 않습니다. 기본 백엔드가 대화형 기능을 지원하지 않는 경우 [백엔드란](https://matplotlib.org/stable/tutorials/introductory/usage.html#id2) 에서 설명한 방법을 사용하여 대화형 백엔드를 며잇적으로 활성화 할수 있다. 
+
+
+**대화식 예제**<br>
+일반 python 프롬프트에서 또는 옵션 없이 ipython을 호출한 후 다음을 시도하라
+```python
+import matplotlib.pyplot as plt 
+plt.ion() 
+plt.plot([1.6, 2.7])
+plt.show()
+```
+그러면 플롯 창이 나타납니다. 터미널 프롬프트는 활성 상태를 유지하므로 다음과 같은 추가 명령을 입력할 수 있다. 
+```python
+plt.title("대화식 테스트")
+plt.xlabel("index")
+```
+대부분의 대화형 백엔드에서 객체 지향 인터페이스를 통해 변경하면 Figure 창도 업데이트 됩니다. 예를 들어 Axes 인스턴스에 대한 참조를 가져오고 해당 인스턴스의 메서드를 호출합니다. 
+```python
+ax = plt.gca()
+ax.plot([3.1, 2.2])
+```
+특정 백엔드 (예: maxosx) 또는 이전 버전의 matplotlib를 사용하는 경우 플롯에 새 행이 즉시 추가되지 않을 수 있습니다. 이 경우 플롯을 업데이트하기 위해 명시적으로 draw()를 호출해야 합니다. 
+```python
+plt.draw()
+```
+
+**비대화형 예제** <br>
+이전 예에서와 같이 새 세션을 시작하되 이제 대화형 모드를 끈다. 
+```python
+import matplotlib.pyplot as plt 
+plt.ioff()
+plt.plot([1.6, 2.7])
+
+```
+아무 일도 일어나지 않았거나 최소한 화면에 아무 것도 나타나지 않았습니다. (변칙적인 macosx 백엔드를 사용하지 않는한). 플롯을 표시하려면 다음을 수행해야 합니다. 
+```python
+plt.show()
+```
+이제 플롯이 표시되지만 터미널 명령줄이 응답하지 않았습니다. pyplot.show()는 플롯 창을 수동으로 종료할 때까지 추가 명령의 입력을 차단합니다. 
+
+강제로 차단 기능을 사용하는 것이 무슨 소용이 있습니까 ? 파일 내용을 화면에 표시하는 스크립트가 필요하다고 가정합니다. 그 줄거리를 보고 스크립트를 끝내고 싶습니다. show()와 같은 일부 차단 명령이 없으면 스크립트는 플롯을 플래시한 다음 화면에 아무 것도 남기지 않고 즉시 종료됩니다. 또한 비대화형 모드는 show()가 호출될 때까지 모든 그리기를 지연시킵니다. 이것은 스크립트의 한 줄이 새 기능을 추가 할때마다 플롯을 다시 그리는 것보다 더 효율적입니다. 
+
+버전 1.0 이전에는 일반적으로 단일 스크립트에서 show()를 두번 이상 호출할 수 없었습니다. 버전 1.0.1 이상에서는 이 제한이 해제되어 다음과 같은 스크립트를 작성할 수 있다. 
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt 
+
+plt.ioff() 
+for i in range(3):
+    plt.plot(np.random.rand(10))
+    plt.show()
+```
+이렇게 하면 한 번에 하나씩 세 개의 플롯이 만들어진다. 즉, 첫번째 플롯이 닫히면 두 번째 폴롯이 표시됨. 
+
+**요약** <br>
+대화형 모드에서 pyplot 함수는 자동으로 화면에 그립니다. 대화식으로 플로팅할 때 pyplot 함수와 함께 객체 메서드 호출을 사용하는 경우 플롯을 새로 고칠 때마다 draw()를 호출한다. 
+
+하나 이상의 Figure 를 생성하고 새로운 Figure 세트를 종료하거나 생성하기 전에 이를 표시하려는 스크립트에서 비대화형 모드를 사용합니다. 이 경우 show()를 사용하여 Figure 를 표시하고 수동으로 제거할 때까지 실행을 차단한다. 
+
+### 성능 
+대화형 모드에서 데이터를 탐색하든 프로그래밍 방식으로 많은 플롯을 저장하든 관계없이 렌더링 성능은 파이프라인에서 고통스러운 병목 현상이 될수 있습니다. Matplotlib 는 플롯의 모양을 약간 변경(설정 가능한 허용 오차로) 하는 대신 렌더링 시간을 크게 줄이는 몇 가지 방법을 제공한다. 렌더링 시간을 줄이는 데 사용할 수 있는 방법은 생성 중인 플롯 유형에 따라 다르다. 
+
+**선분 단순화(Line segment simplification)**<br>
+선 세그먼트가 있는 플롯(예: 일반적인 선 플롯, 폴리곤 윤곽선 등)의 경우 렌더링 성능은 rcParams["path.simplify"](기본값: True) 및 rcParams["path.simplify_threshold"](기본값 : 0.111111111111) , 다음과 같이 정의할 수 있다. matplotlibrc 파일에서 (matplotlibrc 파일에 대한 자세한 내용은 스타일시트 및 rcParams를 사용하여 Matplotlib 사용자 지정 참조). rcParams["path.simplify"](기본값: True)는 선분의 단순화 여부를 나타내는 부울이다.  rcParams["path.simplify_threshold"] (기본값: 0.111111111111)는 단순화된 선분의 양을 제어한다. 임계값이 높을수록 렌더링 속도가 빨라진다. 
+
+다음 스크립트는 먼저 단순화 없이 데이터를 표시한 다음 동일한 데이터를 단순화하여 표시한다. 두가지 모두와 상호 작용해보라. 
+```python 
+import numpy as np
+import matplotlib.pyplot as plt 
+import matplotlib as mpl 
+
+# setup and create the data to plot 
+y = np.random.rand(100000)
+y[50000:] *= 2
+y[np.geomspace(10, 50000, 400).astype(int)] = -1 
+mpl.rcParams['path.simplify'] = True
+
+mpl.rcParams['path.simplify_threshold'] = 0.0
+plt.plot(y)
+plt.show()
+
+mpl.rcParams['path.simplify_threshold'] = 1.0
+plt.plot(y)
+plt.show()
+```
+matplotlib 는 현재 기본적으로 1/9의 보수적인 단순화 임계값을 사용한다. 다른 값을 사용하도록 기본 설정을 변경하려면 matplotlibrc 파일을 변경 할 수 있다. 또는 대화식 플로팅(최대 단순화)을 위한 새 스타일과 출판 품질 플로팅(최소 단순화)을 위한 다른 스타일을 생성하고 필요에 따라 활성화할 수 있다. 이러한 작업을 수행하는 방법에 대한 지침은 스타일 시트 및 rcParam으로 matplotlib 사용자 지정을 참조
+
+단순화는 벡터에 대한 다음 선분의 수직거리 (디스플레이 좌표 공간에서 측정)가 path.simplify_threshold 매개변수보다 클 때까지 선분을 단일 벡터로 반복적으로 병합하여 작동합니다. 
+
+> **노트**
+>> 버전 2.1에서 라인 세그먼트 단순화 방법과 관련된 변경 사항이 적용되었다. 2.1 이전에는 이러한 매개변수에 의해 렌더링 시간이 계속 향상되지만 일부 유형의 데이터에 대한 렌더링 시간은 버전 2.1 이상에서 크게 향상된다. 
 
