@@ -456,3 +456,6 @@ mplstyle.use('fast')
 ```python
 mplstyle.use(['dark_background', 'ggplot', 'fast'])
 ```
+Total running time of the script: ( 0 minutes 2.430 seconds)
+
+
