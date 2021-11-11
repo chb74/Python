@@ -217,7 +217,7 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 
 구성 방법에 대한 자세한 설명은 다음과 같습니다. 
 
-    * matplotlibrc 파일에서 rcParams["backend"] 설정 : 
+   * matplotlibrc 파일에서 rcParams["backend"] 설정 : 
     ```bash 
     backend : qt5agg            #  안티그레인(agg) 렌더링과 함께 pyqt5 사용 
     ```
