@@ -286,7 +286,7 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
 > 노트 
 >> 내장 백엔드의 이름은 대소문자를 구분하지 않습니다. 예를 들어 'Qt5Agg' 및 'qt5agg'는 동일
 
-**ipympl**
+**ipympl**<br>
 주피터 위젯 생태계는 matplotlib에서 직접 지원하기에는 너무 빠르게 움직인다. ipympl을 설치하려면 
 ```bash 
 pip install ipympl 
@@ -298,4 +298,8 @@ or
 conda install ipympl -c conda-forge
 ```
 링크를 참조. [jupyter-matplotlib](https://github.com/matplotlib/jupyter-matplotlib)
+
+
+**PyQt4 또는 PySide를 어떻게 선택하는가 ?**<br>
+<strong>PyQt4 또는 PySide를 어떻게 선택하는가 ?**<strong><br>
 
