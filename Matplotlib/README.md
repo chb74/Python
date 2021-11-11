@@ -1,6 +1,9 @@
 # Matplotlib 가이드  
 
-## Matplotlib 설치 가이드 
+* [Matplotlib 설치 가이드](#matplotlib-install-guide)
+* [사용자 가이드](#matplotlib-user-guide)
+
+## <a name="#matplotlib-install-guide">Matplotlib 설치 가이드 </a>
 Matplotlib 릴리스는 PyPI에서 MacOS, Windows 및 리눅스용 휠 패키지로 사용할 수 있다. Numpy, Pandas 처럼 pip 로 설치하면 된다. 
 
 ```bash
@@ -31,7 +34,7 @@ conda install matplotlib
 [소스는 여기](https://matplotlib.org/stable/devel/development_setup.html#installing-for-devs)
 
 
-## 사용자 가이드 
+## <a name=#matplotlib-user-guide>사용자 가이드</a>
 이 튜토리얼에서는 Matplotlib 를 시작하는데 도움이 되는 몇가지 기본 사용 패턴과 모범 사례를 다룬다. 
 ```python 
 import numpy as np
