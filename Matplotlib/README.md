@@ -240,12 +240,12 @@ my_plotter(ax2, data3, data4, {'marker': 'o'})
    ```
    이 환경 변수를 설정하면 현재 작업 디렉토리에 matplotlibrc가 있더라도 모든 matplotlibrc의 백엔드 매개변수를 무시한다. 따라서 MPLBACKEND를 전역적으로 설정한다. (예: .bashrc 또는 .profile에 있는 경우 직관적이지 않은 동작으로 이어질 수 있으므로 권장하지 않음)
    * 스크립트가 특정 백엔드에 의존하는 경우 [matplotlib.use()](https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.use) 함수를 사용할 수 있다. 
-    ```python
-    import matplotlib 
-    matplotlib.use('qt5agg')
-    ```
-    이것은 Figure가 생성되기 전에 수행되어야 한다. 그렇지 않으면 matplotlib가 백엔드를 전환하지 못하고 importError를 발생시킬수 있음
+   ```python
+   import matplotlib 
+   matplotlib.use('qt5agg')
+   ```
+이것은 Figure가 생성되기 전에 수행되어야 한다. 그렇지 않으면 matplotlib가 백엔드를 전환하지 못하고 importError를 발생시킬수 있음
 
-    사용자가 다른 백엔드를 사용하려는 경우 use 를 사용하려면 코드를 변경해야 한다. 따라서 절대적으로 필요한 경우가 아니면 use 를 명시적으로 호출하는 것을 피해야 한다. 
+사용자가 다른 백엔드를 사용하려는 경우 use 를 사용하려면 코드를 변경해야 한다. 따라서 절대적으로 필요한 경우가 아니면 use 를 명시적으로 호출하는 것을 피해야 한다. 
 
 #### 내장 백엔드 
