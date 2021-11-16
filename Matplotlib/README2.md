@@ -237,7 +237,7 @@ plt.show()
 #### Location String 
 
 | Location String | Location Code|
-|-----------------|--------------|
+|-----------------|:--------------:|
 |'best'| 0|
 |'upper right'| 1|
 |'upper left'| 2|
