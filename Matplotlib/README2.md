@@ -46,7 +46,7 @@ t = np.arange(0., 5., 0.2)
 plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
 plt.show()
 ```
-결과는 ![Multi-Graph](multigraph.png)
+결과는 ![Multi-Graph](multigraph.png =200x180)
 
 
 ### 숫자 입력하기 
@@ -90,3 +90,4 @@ plt.xlabel('X-Label')
 plt.ylabel('Y-Label')
 plt.show() 
 ```
+
