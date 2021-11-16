@@ -138,3 +138,96 @@ plt.xlabel('X-Axis', loc = 'right')
 plt.ylabel('Y-Axis', loc = 'top')
 plt.show()
 ```
+
+### 범례 표시 
+범례(Legend)는 그래프에 데이터의 종류를 표시하기 위한 텍스트 이다. matplotlib.pyplot 모듈의 Legend() 함수를 사용해서 그래프에 범례를 표시할 수 있다. 
+
+
+#### 기본 사용 
+그래프 영역에 범례 표시를 위해서 plot() 함수에 label 문자열을 지정하고 Legend() 함수를 호출한다. 
+
+```python 
+
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label = 'Price ($)')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.legend()
+
+plt.show()
+
+```
+#### 위치 지정 
+legend() 함수의 loc 파라미터를 이용해서 범례가 표시될 위치를 설정할 수 있음 loc 파라미터를 숫자 쌍 튜플로 지정하면, 해당 하는 위치에 범례가 표시됨. loc = (0.0, 0.0) 은 데이터 영역의 왼쪽 아래, loc=(1.0, 1.0)은 데이터 영역의 오른쪽 위 위치에 표시. 
+
+
+```python 
+import matplotlib.pyplot as plt 
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label= 'Price ($)')
+plt.xlabel('X-Axis')
+plt.ylabel('U-Axis')
+plt.legend(loc=(1.0, 1.0))
+```
+
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label = 'Price ($)')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.legend(loc='lower right')
+
+plt.show()
+```
+`lower right` 는 오른쪽 아래에 범례를 표시함. 
+
+
+### 열 개수 지정하기 
+
+legend() 함수의 ncol 파라미터는 범례에 표시될 텍스트의 열의 개수를 지정함. 
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label = 'Price ($)')
+plt.plot([1, 2, 3, 4], [3, 5, 9, 7], label = 'Demand (#)')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+# ncol이 2이면 두줄로 표현
+plt.legend(loc = 'best', ncol = 2)
+
+plt.show()
+```
+
+
+### 폰트 크기 지정하기 
+legend() 함수의 fontsize 파라미터는 범례에 표시될 폰트의 크기 지정 
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label = 'Price ($)')
+plt.plot([1, 2, 3, 4], [3, 5, 9, 7], label = 'Demand (#)')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+plt.legend(loc='best', ncol= 2 , fontsize=14)
+
+```
+
+### 범례의 테두리 속성 지정 
+
+frameon 파라미터는 범례 텍스트 상자위 테두리를 표시할지 여부를 지정하며 frameon = False 로 지정하면 테두리가 표시되지 않음. shadow 파라미터를 사용하서 텍스트 상자에 그림자를 표시할 수 있음 
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], label = 'Price ($)')
+plt.plot([1, 2, 3, 4], [3, 5, 9, 7], label = 'Demand (#)')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+plt.legend(loc = 'best', ncol = 2, fontsize= 14, frameon = True, shadow = True)
+
+plt.show()
+```
