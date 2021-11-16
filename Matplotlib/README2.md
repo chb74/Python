@@ -46,8 +46,7 @@ t = np.arange(0., 5., 0.2)
 plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
 plt.show()
 ```
-결과는 ![Multi-Graph](./multigraph.png){: width="50%" height="50%"}
-
+결과는 ![Multi-Graph](./multigraph.png)
 
 ### 숫자 입력하기 
 matplotlib.pyplot 모듈의 plot()은 선(Line) 또는 마커(Marker) 그래프 그리기에 사용되는 함수이다. plot() 함수에 y값을 리스트 형태로 입력하면 위 그림과 같은 꺽은선 그래프가 그려짐. 
@@ -91,3 +90,51 @@ plt.ylabel('Y-Label')
 plt.show() 
 ```
 
+### 여백 지정
+xlabel(), ylabel() 함수의 labelpad 파라미터는 축 레이블의 여백(Padding)을 지정한다. 예제에서는 X축 레이블에 대해서 15pt, y출 레이블에 대해 20pt 만큼의 여북 지정 
+
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis', labelpad = 15)
+plt.ylabel('Y-Axis', labelpad = 20)
+plt.show() 
+```
+
+### 폰트 설정하기 
+xlabel(), ylabel() 함수의 fontdict 파라미터를 사용하면 축 레이블의 폰트 스타일을 설정할 수 있다. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+font1 = {'family': 'serif', 
+        'color': 'b',
+        'weight': 'bold',
+        'size': 14
+}
+font2 = {'family': 'fantasy',
+        'color': 'deeppink',
+        'weight': 'normal',
+        'size': 'xx-large'
+}
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis', labelpad = 15, fontdict = font1)
+plt.ylabel('Y-Axis', labelpad = 20, fontdict = font2)
+
+plt.show()
+```
+
+### 위치 지정하기 
+xlabel() 함수의 loc 파라미터는 X축 레이블의 위치를 지정한다. ({'left', 'center', 'right'})
+ylabel() 함수의 loc 파라미터는 Y축 레이블의 위치를 지정한다. ({'bottom', 'center', 'top'}) 이 파라미터는 Matplotlib 3.3 이후 버전부터 적용되었다. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis', loc = 'right')
+plt.ylabel('Y-Axis', loc = 'top')
+plt.show()
+```
