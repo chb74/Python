@@ -1,6 +1,6 @@
 # 기본 사용방법
 
-Ref : https://wikidocs.net/92071
+Ref Original URL : https://wikidocs.net/92071
 
 plt.plot([1, 2, 3, 4]) 와 같이 입력하면 x 축 값은 자동으로 만들어 냅니다. 즉, 다음과 같이 만들어집니다. 
 
@@ -35,6 +35,15 @@ plt.show()
 ### 여러개의 그래프 그리기 
 matplotlib에서는 일반적으로 Numpy 배열을 이용하게 됨. Numpy 사용하지 않더라도 모든 스퀀스는 내부적으로 Numpy 배열로 변환됨. 
 
-```python
+`plt.plot(X, Y1, 'r--', X, Y2, 'bs', X, Y3, 'g^')`
 
+```python
+import matplotlib.pyplot as plt 
+import numpy as np 
+
+t = np.arange(0., 5., 0.2)
+
+plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+plt.show()
 ```
+![Multi-Graph](multigraph.png)
