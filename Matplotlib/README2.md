@@ -46,4 +46,47 @@ t = np.arange(0., 5., 0.2)
 plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
 plt.show()
 ```
-![Multi-Graph](multigraph.png)
+결과는 ![Multi-Graph](multigraph.png)
+
+
+### 숫자 입력하기 
+matplotlib.pyplot 모듈의 plot()은 선(Line) 또는 마커(Marker) 그래프 그리기에 사용되는 함수이다. plot() 함수에 y값을 리스트 형태로 입력하면 위 그림과 같은 꺽은선 그래프가 그려짐. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+# 좌표는 y축으로 인식 
+plt.plot([2, 3, 5, 10])
+plt.show()
+```
+
+### x, y 값 입력하기 
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.show() 
+```
+plot() 함수에 두개의 리스트를 입력하면 순서대로 x, y값들로 인식해서 점 `(1, 2), (2, 3), (3, 5), (4, 10)`를 잇는 꺽은선 그래프가 나타남 
+
+### 레이블이 있는 데이터 사용하기 
+파이썬 딕셔너리와 같이 레이블이 있는 데이터를 그래프로 나타낼수 있다. plot() 함수에 데이터의 레이블 (딕셔너리의 키)을 입력해주고, data 파라미터에 딕셔너리를 지정해줌. 
+```python 
+import matplotlib.pyplot as plt 
+
+data_dict = {'data_x': [1, 2, 3, 4, 5], 'data_y': [2, 3, 5, 10, 8]}
+plt.plot('data_x', 'data_y', data=data_dict)
+plt.show()
+```
+
+### Matplotlib 축 레이블 설정하기 
+matplotlib.pyplot 모듈의 xlabel(), ylabel() 함수를 사용하면 그래프의 x, y축에 대한 레이블을 표시할 수 있다. 이 페이지에서는 xlabel(), ylabel() 함수를 사용해서 그래프의 축에 레이블을 표시하는 방법은 
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+plt.xlabel('X-Label')
+plt.ylabel('Y-Label')
+plt.show() 
+```
