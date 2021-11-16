@@ -231,3 +231,21 @@ plt.legend(loc = 'best', ncol = 2, fontsize= 14, frameon = True, shadow = True)
 
 plt.show()
 ```
+
+이 외에도 legend() 함수에는 facecolor, edgecolor, borderpad, labelspacing 과 같은 다양한 파라미터가 있다. 
+
+#### Location String 
+
+| Location String | Location Code|
+|-----------------|--------------|
+|'best'| 0|
+|'upper right'| 1|
+|'upper left'| 2|
+|'lower left'| 3|
+|'lower right'| 4|
+|'right'| 5|
+|'center left'| 6|
+|'center right'| 7|
+|'lower center'|8|
+|'upper center'| 9|
+|'center' | 10|
