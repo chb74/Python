@@ -249,3 +249,84 @@ plt.show()
 |'lower center'|8|
 |'upper center'| 9|
 |'center' | 10|
+
+
+### 축 범위의 지정 
+xlim() 함수에 xmin, xmax 값을 각각 입력하거나 리스트 또는 튜플의 형태로 입력한다. ylim()함수에 ymin, ymax 값을 각각 입력하거나 리스트 또는 튜플의 형태로 입력 입력값이 없으면 데이터에 맞게 자동으로 범위를 지정. 
+
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.xlim([0, 5])    # X축의 범위 : [xmin, xmax]
+plt.ylim([0, 20])   # Y축의 점위 : [ymin, ymax]
+
+plt.show()
+```
+
+#### axis() 함수의 사용 
+axis() 함수는 [xmin, xmax, ymin, ymax] 의 형태로 X, Y축의 점위를 지정할 수 있음. axis() 함수에 입력한 리스트 (또는 튜플)은 반드시 네 개의 값 (xmin, xmax, ymin, ymax)이 있어야 한다. 입력값이 없으면 데이터에 맞게 자동으로 범위를 지정. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.axis([0, 5, 0, 20])     # X, Y 축의 범위 : [xmin, xmax, ymin, ymax]
+
+plt.show()
+```
+
+### 옵션 지정하기 
+axis() 함수의 다양한 옵션 
+`'on' | 'off' | 'equal' | 'scaled' | 'tight' | 'auto' | 'normal' | 'image' | 'square'`
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.axis('scaled')
+
+plt.show()
+```
+
+### 축범위 얻기 
+xlim() , ylim() 함수는 그래프 영역에 표시되는 X축, Y축의 점위를 각각 반환한다. axis()  함수는 그래프 영역에 표시되는 X, Y축의 범위를 반환
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10])
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+x_range, y_range = plt.xlim(), plt.ylim()
+print(x_range, y_range)
+
+axis_range = plt.axis('scaled')
+print(axis_range)
+plt.show()
+```
+
+### 선 종류 지정 
+선의 종류 : '-' (solid), '--'(Dashed), ':'(Dotted), '-.'(Dash-dot)
+네가지 중에 선택이 가능하다. 
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3], [4, 4, 4], '-', color = 'C0', label = 'Solid')
+plt.plot([1, 2, 3], [3, 3, 3], '--', color = 'C0', label = 'Dashed')
+plt.plot([1, 2, 3], [2, 2, 2], ':', color = 'C0', label = 'Dotted')
+plt.plot([1, 2, 3], [1, 1, 1], '-.', color='C0', label = 'Dash-dot')
+
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.axis([0.8, 3.2, 0.5, 5.0])
+plt.legend(loc = 'upper right', ncol= 4)
+plt.show()
+```
