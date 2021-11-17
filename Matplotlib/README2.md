@@ -379,3 +379,40 @@ plt.legend(loc ='upper right', ncol = 2)
 plt.tight_layout()
 plt.show()
 ```
+
+### 마커 지정하기 
+
+특별한 설정이 없으면 그래프가 실성으로 그려지지만, 위의 그림과 같은 마커 형태의 그래프를 그릴 수 있다. plot() 함수의 포맷 문자열 (Format string)을 사용해서 그래프의 선과 마커를 지정하는 방법은  plot() 함수에 'bo'를 입력해주면 파란색의 원형 마커로 그래프가 표시됨. b가 blue, o는 circle을 나타내는 문자이다. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], 'bo')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.show()
+```
+
+#### 선과 마커를 동시에 
+b : blue markers 
+o : circle 
+- : solid line 
+-- : dashed line 
+ro : red circles 
+g- : green solid line 
+k^ : black triangle_up markers connected by a dotted 
+
+```python
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3, 4], [2, 3, 5, 10], 'bo--')
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.show()
+```
+
+#### Marker 파라메터 사용 
+
+| 마커 | 심벌 | 설명 |
+|:-:|:-:|:-:|
+|.|점| point|
