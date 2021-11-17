@@ -330,3 +330,52 @@ plt.axis([0.8, 3.2, 0.5, 5.0])
 plt.legend(loc = 'upper right', ncol= 4)
 plt.show()
 ```
+
+#### linestyle 지정하기 
+포맷 문자열과 같이 'solid', 'dashed', 'dotted', 'dashdot' 네가지의 선 종류를 지정할 수있다. 
+
+```python 
+import matploblit.pyplot as plt 
+
+plt.plot([1, 2, 3], [4, 4, 4], linestyle='solid', color = 'C0', label = "'solid'")
+plt.plot([1, 2, 3], [3, 3, 3], linestyle='dashed', color = 'C0', label = "'dashed'")
+plt.plot([1, 2, 3], [2, 2, 2], linestyle='dotted', color = 'C0', label = "'dotted'")
+plt.plt([1, 2, 3], [1, 1, 1], linestyle='dashdot', color = 'C0', label = "'dashdot'")
+
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+plt.axis([0.8, 3.2, 0.5, 5.0])
+plt.legend(loc = 'upper right', ncol = 4)
+plt.tight_layout()
+plt.show()
+```
+
+#### 튜플 사용하기 
+튜플을 사용해서 선의 종류를 커스터마이즈 가능함. 
+
+(0, (1, 1)) : dotted 
+(0, (5, 5)) : dashed 
+(0, (3, 5, 1, 5)) : dashdotted 
+
+
+#### 선 끝 모양 지정하기 
+
+plot() 함수의 solid_capstyle, dash_capstyle를 사용해서 선의 끝 모양을 지정할 수 있다. 각각 'butt', 'round'로 지정하면 뭉뚝한, 둥근 끝 모양으로 표현됨. 
+
+```python 
+import matplotlib.pyplot as plt 
+
+plt.plot([1, 2, 3], [4, 4, 4], linestyle = 'solid', linewidth = 10, solid_capstyle = 'butt', color = 'C0', label = 'solid+butt')
+plt.plot([1, 2, 3], [3, 3, 3], linestyle = 'solid', linewidth = 10, solid_capstyle = 'round', color = 'C0', label = 'solid+round')
+
+plt.plot([1, 2, 3], [2, 2, 2], linestyle = 'dashed', linewidth = 10, dash_capstyle = 'butt', color = 'C1', label = 'dashed+butt')
+plt.plot([1, 2, 3], [1, 1, 1], linestyle = 'dashed', linewidth = 10, dash_capstyle = 'round', color = 'C1', label = 'dashed+round')
+
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+plt.axis([0.8, 3.2, 0.5, 5.0])
+plt.legend(loc ='upper right', ncol = 2)
+plt.tight_layout()
+plt.show()
+```
