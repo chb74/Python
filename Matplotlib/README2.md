@@ -424,33 +424,33 @@ plt.show()
 |>|오른쪽 삼각형| 오른쪽 삼각형|
 |1|Y| Y자 |
 |2|역Y| 역 Y|
-|3|
-|4|
-|8|
-|s|
-|p|
-|P|
-|*|
-|h|
-|H|
-|+|
-|x|
-|X|
-|D|
-|d|
-|||
-|_|
-|0|
-|1|
-|2|
-|3|
-|4|
-|5|
-|6|
-|7|
-|8|
-|9|
-|10|
-|11|
-None, " ", ""
-'$..$'
+|3|tri_left| 왼쪽 Y|
+|4|tri_right| 오른쪽  Y|
+|8| 8각형 | octagon|
+|s| 정사각형 | square|
+|p| 오각형 | pentagon|
+|P| + | plus (filled)|
+|*| * | Star |
+|h| 6각형 | hexagon1|
+|H| 6각형 | hexagon2|
+|+| + | plus|
+|x| X | x |
+|X| x | x (filled) |
+|D| 다이아몬드 | diamond|
+|d| 얇은 다이아몬드 | thin_diamond|
+|||"|"| vline|
+|_|-|hline|
+|0|-| tickleft|
+|1|-| tickright|
+|2|"|"| tickup|
+|3|"|"| tickdown|
+|4|왼쪽 삼각형 | caretleft|
+|5|오른쪽 삼각형 | caretright|
+|6|위쪽 삼각형 | caretup|
+|7|아래쪽 삼각형| caretdown|
+|8| 왼쪽 삼각형 | caretleft ( centered at base)|
+|9| 오른쪽 삼각형 | caretright (centered at base) |
+|10| 위쪽 삼각형 | caretup () (centered at base |
+|11| 아래쪽 삼각형 | caretdown (centered at base)|
+|None, " ", ""| nothing | |
+|'$..$'| f | Render the string using mathtext.|
